@@ -8,7 +8,7 @@ use Tests\TestCase;
 class EstateTypeTest extends TestCase
 {
     /**
-     * @test
+     * @void
      */
     public function itReturnsAllEstateTypes()
     {
@@ -29,7 +29,7 @@ class EstateTypeTest extends TestCase
     }
 
     /**
-     * @test
+     * @void
      */
     public function itUpdatesEstateType()
     {
@@ -41,7 +41,7 @@ class EstateTypeTest extends TestCase
     }
 
     /**
-     * @test
+     * @void
      */
 
     public function itDeletesRecord()

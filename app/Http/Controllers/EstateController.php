@@ -14,9 +14,10 @@ class EstateController extends Controller
      */
     public function index()
     {
-        $estates = Estate::where('available', true)->get();
+        $estates = Estate::where('available', true)
+            ->where('assigned', true)->get();
 
-        return view('admin.pages.estates.index', ['estates', $estates]);
+        // return view('admin.pages.estates.index', ['estates', $estates]);
     }
 
     /**
@@ -53,6 +54,7 @@ class EstateController extends Controller
             'available' => true,
             'assigned' => false,
             'assignment_date' => $request->assignment_date,
+            'agent_id' => 1,
         ]);
 
         return redirect()->back()->with([
