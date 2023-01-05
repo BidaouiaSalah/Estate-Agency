@@ -16,7 +16,7 @@ class EstateTypeController extends Controller
     {
         $estateTypes = EstateType::all();
 
-        // return view('admin.pages.estateType.index', ['estateTypes', $estateTypes]);
+        return view('app.pages.estate_types.index', compact('estateTypes'));
     }
 
     /**

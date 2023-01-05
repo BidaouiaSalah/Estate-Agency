@@ -18,6 +18,10 @@ use App\Http\Controllers\EstateTypeController;
 
 Route::view('/', 'welcome');
 
-Route::resource('estate/type', EstateTypeController::class);
 Route::resource('amenities', AmenityController::class);
 Route::resource('estates', EstateController::class);
+
+Route::prefix('admin')->as('admin.')->group(function () {
+    Route::view('/', 'app.layout');
+    Route::resource('estate-type', EstateTypeController::class);
+});

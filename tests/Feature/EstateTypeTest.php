@@ -7,44 +7,37 @@ use Tests\TestCase;
 
 class EstateTypeTest extends TestCase
 {
-    /**
-     * @void
-     */
-    public function itReturnsAllEstateTypes()
+
+    public function test_returns_all_estate_types()
     {
         $response = $this->get('/estate/type');
-        $response->assertStatus(200);
+
+        $response->assertOK();
     }
 
-    /**
-     *@void
-     */
-    public function itStoresEstateType()
+    public function test_store_validate_estate_type()
     {
         $response = $this->post('/estate/type', [
-            'name' => 'mqn',
-            'slug' => 'sahdjhjd'
+            'name' => '',
+            'slug' => ''
         ]);
-        $response->assertStatus(302);
+        $response->assertSessionHas('errors');
     }
 
-    /**
-     * @void
-     */
-    public function itUpdatesEstateType()
-    {
-        $response = $this->put('/estate/type/3', [
+    public function test_estate_type_name_is_unique(){
+        $response = $this->post('/estate/type', [
             'name' => 'salah',
             'slug' => 'salah'
         ]);
-        $response->assertStatus(302);
+        $response = $this->post('/estate/type', [
+            'name' => 'salah',
+            'slug' => 'salah'
+        ]);
+
+        $response->assertRedirectContains('/estate/type');
     }
 
-    /**
-     * @void
-     */
-
-    public function itDeletesRecord()
+    public function test_deletes_record()
     {
         $response = $this->delete('/estate/type/16');
 
