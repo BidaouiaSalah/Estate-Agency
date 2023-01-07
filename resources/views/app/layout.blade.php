@@ -50,9 +50,6 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-               <!-- Page Heading -->
-               @include('app.includes.heading')
-
                <!-- Content Row -->
                @yield('content')
 

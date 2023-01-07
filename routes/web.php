@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EstateController;
 use App\Http\Controllers\AmenityController;
@@ -21,7 +22,11 @@ Route::view('/', 'welcome');
 Route::resource('amenities', AmenityController::class);
 Route::resource('estates', EstateController::class);
 
-Route::prefix('admin')->as('admin.')->group(function () {
+Route::prefix('admin/{lang}')->as('admin.')->group(function () {
     Route::view('/', 'app.layout');
-    Route::resource('estate-type', EstateTypeController::class);
+    Route::resource('estate-types', EstateTypeController::class);
 });
+Auth::routes();
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
