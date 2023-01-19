@@ -7,7 +7,7 @@
       <div class="sidebar-brand-icon rotate-n-15">
          <i class="fas fa-laugh-wink"></i>
       </div>
-      <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+      <div class="sidebar-brand-text mx-3">Managment</div>
    </a>
 
    <!-- Divider -->
@@ -16,7 +16,7 @@
    <!-- Nav Item - Dashboard -->
    <li class="nav-item active">
       <a class="nav-link"
-         href="index.html">
+         href="{{ route('admin.dashboard.index') }}">
          <i class="fas fa-fw fa-tachometer-alt"></i>
          <span>Dashboard</span></a>
    </li>
@@ -31,7 +31,7 @@
    <!-- Nav Item - estate types -->
    <li class="nav-item active">
       <a class="nav-link"
-         href="{{ route('admin.estate-types.index', app()->getLocale()) }}">
+         href="{{ route('admin.estate-types.index') }}">
          <i class="fa-solid fa-bars"></i>
          <span>Estate Types</span></a>
    </li>

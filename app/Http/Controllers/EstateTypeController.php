@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Models\Estate;
 use App\Models\EstateType;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use RealRashid\SweetAlert\Toaster;
 
 class EstateTypeController extends Controller
 {
@@ -20,16 +25,6 @@ class EstateTypeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.pages.estateType.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,54 +32,51 @@ class EstateTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $name = $request->name;
+
         $request->validate([
             'name' => 'required|unique:estate_types',
-            'slug' => 'required'
         ]);
 
         EstateType::create(
             [
-                'name' => $request->name,
-                'slug' => $request->slug
+                'name' => $name,
+                'slug' => Str::slug($name)
             ]
         );
 
-        return back()->with([
+        toast('The Estate Type has been submited!', 'success');
+
+        return redirect()->route('admin.estate-types.index')->with([
             'success' => 'Estate Type Created successfully'
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(EstateType $estateType)
+    public function update(Request $request, $id)
     {
-        return view('admin.pages.estateTypes.edit', ['estateType' => $estateType]);
-    }
+        $name = $request->name;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EstateType $estateType)
-    {
         $request->validate([
             'name' => 'required|unique:estate_types',
-            'slug' => 'required'
         ]);
 
-        $estateType->update([
-            'name' => $request->name,
-            'slug' => $request->slug
-        ]);
+        $estateType = EstateType::find($request->estate_type);
+        $estateType->update(
+            [
+                'name' => $name,
+                'slug' => Str::slug($name)
+            ]
+        );
 
-        return back()->with([
+        toast('The Estate Type has been edited!','success');
+
+        return redirect()->route('admin.estate-types.index')->with([
             'success' => 'Estate Type Updated successfully'
         ]);
     }
@@ -95,10 +87,15 @@ class EstateTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EstateType $estateType)
+    public function destroy(Request $request)
     {
-        $estateType->delete();
+        try {
+            $estateType = EstateType::findOrFail($request->estate_type);
+            $estateType->delete();
 
-        return back()->with(['success' => 'Estate Type deleted successfully']);
+            return back()->with(['success' => 'Estate Type deleted successfully']);
+        } catch (Exception $e) {
+            dd($e);
+        }
     }
 }

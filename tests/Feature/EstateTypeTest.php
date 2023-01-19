@@ -24,7 +24,8 @@ class EstateTypeTest extends TestCase
         $response->assertSessionHas('errors');
     }
 
-    public function test_estate_type_name_is_unique(){
+    public function test_estate_type_name_is_unique()
+    {
         $response = $this->post('/estate/type', [
             'name' => 'salah',
             'slug' => 'salah'
@@ -39,8 +40,14 @@ class EstateTypeTest extends TestCase
 
     public function test_deletes_record()
     {
-        $response = $this->delete('/estate/type/16');
+        $response = EstateType::create([
+            'id' => 19,
+            'name' => 'nama',
+            'slug' => 'mnmas'
+        ]);
 
-        $response->assertStatus(302);
+        $response->delete('/estate/type/1');
+
+        $response->assertOk();
     }
 }

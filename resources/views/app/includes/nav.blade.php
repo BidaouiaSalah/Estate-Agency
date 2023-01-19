@@ -201,7 +201,7 @@
 
       <!-- Nan Item - Languages--->
       <li class="nav-item dropdown no-arrow mx-1">
-         <a class="nav-link dropdown-toggle"
+         <a class="nav-link dropdown-toggle text-dark"
             href="#"
             id="messagesDropdown"
             role="button"
@@ -209,26 +209,29 @@
             aria-haspopup="true"
             aria-expanded="false">
             <img
-               src="{{ request()->lang == 'en'
-                   ? asset('/storage/img/united-states-of-america.png')
-                   : asset('/storage/img/france.png') }}"
-               alt="American flag">
+            src="{{ request()->locale == 'en'
+                ? asset('/storage/img/united-states-of-america.png')
+                : asset('/storage/img/france.png') }}"
+            alt="American flag">
          </a>
          <!-- Dropdown - Messages -->
          <div class="dropdown dropdown-menu dropdown-menu"
             aria-labelledby="Dropdown">
+
             <a class="dropdown-item"
-               href="{{ route(Route::currentRouteName(), 'fr') }}">
+               href="{{ route(Route::currentRouteName(), ['locale' => 'fr']) }}">
                <img src="{{ asset('/storage/img/france.png') }}"
                   alt="American flag">
                French
             </a>
+
             <a class="dropdown-item"
-               href="{{ route(Route::currentRouteName(), 'en') }}">
+               href="{{ route(Route::currentRouteName(), ['locale' => 'en']) }}">
                <img src="{{ asset('/storage/img/united-states-of-america.png') }}"
                   alt="American flag">
                English
             </a>
+
          </div>
       </li>
       <div class="topbar-divider d-none d-sm-block"></div>

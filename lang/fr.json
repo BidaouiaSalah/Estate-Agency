@@ -1,4 +1,11 @@
 {
     "Name": "Nom",
-    "Estate Types": "les types de biens"
+    "Estate Types": "les types de biens",
+    "Create": "Créer",
+    "Generate Report": "Générer un rapport",
+    "Actions": "Actions",
+    "Update Type": "Mettre à jour Type",
+    "Close": "Fermer",
+    "Save": "Ajouter",
+    "Nothing Found": "Rien n'a été trouvé"
 }

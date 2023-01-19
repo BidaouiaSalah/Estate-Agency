@@ -31,7 +31,7 @@ return new class extends Migration
             $table->boolean('available');
             $table->boolean('assigned')->nullable();
             $table->date('assignment_date')->nullable();
-            $table->foreignId('type_id')->constrained('estate_types');
+            $table->foreignId('type_id')->constrained('estate_types')->cascadeOnDelete();
             $table->foreignId('city_id')->constrained();
             $table->foreign('agent_id')->references('id')->on('users');
             $table->timestamps();

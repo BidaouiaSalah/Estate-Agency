@@ -31,6 +31,7 @@
 
    <!-- Page Wrapper -->
    <div id="wrapper">
+      @include('sweetalert::alert')
 
       <!-- Sidebar -->
       @include('app.includes.sidebare')
