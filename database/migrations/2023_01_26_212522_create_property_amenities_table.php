@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('property_amenities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
+            $table->unsignedBigInteger('amenity_id');
+            $table->unsignedBigInteger('property_id');
+            $table->foreign('amenity_id')->references('id')->on('amenities');
+            $table->foreign('property_id')->references('id')->on('properties');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('property_amenities');
     }
 };

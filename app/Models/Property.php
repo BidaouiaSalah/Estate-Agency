@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\EstateType;
-use Database\Factories\EstateFactory;
+use App\Models\TransactionType;
+use Database\Factories\PropertyFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Estate extends Model
+class Property extends Model
 {
     use HasFactory;
 
@@ -18,32 +18,21 @@ class Estate extends Model
      */
     protected static function newFactory()
     {
-        return EstateFactory::new();
+        return PropertyFactory::new();
     }
 
     public function type()
     {
-        return $this->belongsTo(EstateType::class);
+        return $this->belongsTo(PropertyType::class);
     }
 
-    public function city()
+    public function transactionType()
     {
-        return $this->belongTo(City::class);
+        return $this->belongsTo(TransactionType::class);
     }
 
     public function amenities()
     {
         return $this->belongsToMany(Amenity::class);
     }
-
-    public function contract()
-    {
-        return $this->belongTo(Contract::class);
-    }
-
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
-    }
-
 }

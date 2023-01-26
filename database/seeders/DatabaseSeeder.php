@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             // EstateTypeSeeder::class,
             // CitySeeder::class,
             // AmenitySeeder::class,
-            UserSeeder::class,
-            EstateSeeder::class,
+            // UserSeeder::class,
+            // EstateSeeder::class,
         ]);
     }
 }

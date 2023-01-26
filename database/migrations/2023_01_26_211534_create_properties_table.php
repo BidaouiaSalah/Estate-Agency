@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estates', function (Blueprint $table) {
+        Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('agent_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->text('description');
             $table->text('address');
+            $table->string('city');
             $table->string('postale_code')->nullable();
             $table->decimal('space');
             $table->float('price');
@@ -29,11 +30,11 @@ return new class extends Migration
             $table->integer('parking_spaces')->nullable();
             $table->boolean('pets_allowed');
             $table->boolean('available');
-            $table->boolean('assigned')->nullable();
-            $table->date('assignment_date')->nullable();
-            $table->foreignId('type_id')->constrained('estate_types')->cascadeOnDelete();
-            $table->foreignId('city_id')->constrained();
-            $table->foreign('agent_id')->references('id')->on('users');
+            $table->foreignId('type_id')->constrained('property_types')
+                ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('transaction_type_id')->constrained('transaction_types')
+                ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -45,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estates');
+        Schema::dropIfExists('properties');
     }
 };

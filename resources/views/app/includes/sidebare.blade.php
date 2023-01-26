@@ -7,7 +7,7 @@
       <div class="sidebar-brand-icon rotate-n-15">
          <i class="fas fa-laugh-wink"></i>
       </div>
-      <div class="sidebar-brand-text mx-3">Managment</div>
+      <div class="sidebar-brand-text mx-3">Hi Admin</div>
    </a>
 
    <!-- Divider -->
@@ -26,14 +26,14 @@
 
    <!-- Heading -->
    <div class="sidebar-heading">
-      Estates
+     Property Managment
    </div>
-   <!-- Nav Item - estate types -->
+   <!-- Nav Item - property types -->
    <li class="nav-item active">
       <a class="nav-link"
-         href="{{ route('admin.estate-types.index') }}">
+         href="{{ route('admin.property-types.index') }}">
          <i class="fa-solid fa-bars"></i>
-         <span>Estate Types</span></a>
+         <span>Property Types</span></a>
    </li>
    <!-- Nav Item - Utilities Collapse Menu -->
    <li class="nav-item">

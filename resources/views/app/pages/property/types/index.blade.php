@@ -1,7 +1,7 @@
 @extends('app.layout')
 @section('content')
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">{{ __('Estate Types') }}</h1>
+      <h1 class="h3 mb-0 text-gray-800">{{ __('Property Types') }}</h1>
       <div>
          <button type="button"
             class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"
@@ -16,7 +16,7 @@
    </div>
    <div class="card shadow mb-4">
       <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary">{{ __('Estate Types') }}</h6>
+         <h6 class="m-0 font-weight-bold text-primary">{{ __('Property Types') }}</h6>
       </div>
       <div class="card-body">
          <div class="table-responsive">
@@ -26,7 +26,7 @@
                cellspacing="0">
                <thead>
                   <tr>
-                     <th ><input type="checkbox"
+                     <th><input type="checkbox"
                            name="bulk"
                            id="bulk"> <span class="px-3">Select Allo</span></th>
                      <th>{{ __('Name') }}</th>
@@ -43,7 +43,7 @@
                   </tr>
                </tfoot>
                <tbody>
-                  @forelse ($estateTypes as $type)
+                  @foreach ($propertyTypes as $type)
                      <tr>
                         <td><input type="checkbox"
                               name="bulk"
@@ -51,9 +51,7 @@
                         <td>{{ $type->name }}</td>
                         <td>
                            <form
-                              action="{{ route('admin.estate-types.destroy', [
-                                  'estate_type' => $type->id,
-                              ]) }}"
+                              action="{{ route('admin.property-types.destroy', ['property_type' => $type->id]) }}"
                               method="post"
                               class="d-inline">
                               @csrf
@@ -72,7 +70,7 @@
                            </button>
                         </td>
                      </tr>
-                     {{-- begin edit modal --}}
+                     {{-- begin edit Property type modal --}}
                      <div class="modal fade"
                         id="editModal"
                         tabindex="-1"
@@ -92,7 +90,8 @@
                                  </a>
                               </div>
                               <div class="modal-body">
-                                 <form action="{{ route('admin.estate-types.update', [$type->id]) }}"
+                                 <form
+                                    action="{{ route('admin.property-types.update', [$type->id]) }}"
                                     method="post">
                                     @csrf
                                     @method('put')
@@ -110,22 +109,20 @@
                                     class="btn btn-secondary"
                                     data-dismiss="modal">{{ __('Close') }}</button>
                                  <button type="submit"
-                                    class="btn btn-primary">{{ __('Save') }}</button>
+                                    class="btn btn-primary">{{ __('Update') }}</button>
                               </div>
                               </form>
                            </div>
                         </div>
                      </div>
                      {{-- end modal --}}
-                  @empty
-                     <h1 class="h3 mb-1 text-gray-800">{{ __('Nothing Found') }}</h1>
-                  @endforelse
+                  @endforeach
                </tbody>
             </table>
          </div>
       </div>
    </div>
-   {{-- begin create new estate type modal --}}
+   {{-- begin create new Property type modal --}}
    <div class="modal fade"
       id="createModal"
       tabindex="-1"
@@ -137,7 +134,7 @@
          <div class="modal-content">
             <div class="modal-header">
                <h5 class="modal-title"
-                  id="createModalLabel">{{ __('NewType') }}</h5>
+                  id="createModalLabel">{{ __('New Type') }}</h5>
                <a class="close"
                   data-dismiss="modal"
                   aria-label="Close">
@@ -145,7 +142,7 @@
                </a>
             </div>
             <div class="modal-body">
-               <form action="{{ route('admin.estate-types.store', app()->getLocale()) }}"
+               <form action="{{ route('admin.property-types.store') }}"
                   method="post">
                   @csrf
                   <div class="form-group">
