@@ -83,11 +83,24 @@ class PropertyTypeController extends Controller
      */
     public function destroy(Request $request)
     {
-        $PropertyType = PropertyType::find($request->property_type);
-
-        $PropertyType->delete();
+        PropertyType::find($request->property_type)->delete();
 
         toast('The property Type has been Deleted!', 'success');
+
         return redirect()->route('admin.property-types.index');
+    }
+
+    /**
+     * Remove Multiple resource from storage.
+     *
+     * @param  array  $ids
+     */
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->ids;
+
+        PropertyType::whereIn('id', explode(",", $ids))->delete();
+
+        return response()->json(['success' => 'the property deleted!']);
     }
 }

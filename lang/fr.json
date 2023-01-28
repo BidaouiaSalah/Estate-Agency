@@ -1,13 +1,16 @@
 {
     "Name": "Nom",
-    "Property Types": "Types des propriété",
-    "Create": "Créer",
-    "Generate Report": "Générer un rapport",
+    "Property types": "Types des propriété",
+    "Generate report": "Générer un rapport",
     "Actions": "Actions",
-    "Update Type": "Modifier Type",
+    "Update type": "Modifier type",
     "Close": "Fermer",
     "Save": "Ajouter",
-    "Update":"Éditer",
+    "Update": "Éditer",
     "No data available in table": "Rien n'a été trouvé",
-    "New Type": "Nouveau Type"
+    "New type": "Nouveau type",
+    "Bulk delete": "Supprimer plusieurs",
+    "Add new": "Créer nouveau",
+    "Select all": "Sélectionner tout",
+    "Amenities": "Caractéristiques"
 }

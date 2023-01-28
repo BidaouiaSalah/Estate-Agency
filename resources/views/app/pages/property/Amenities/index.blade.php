@@ -1,10 +1,10 @@
 @extends('app.layout')
 @section('content')
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">{{ __('Property Types') }}</h1>
+      <h1 class="h3 mb-0 text-gray-800">{{ __('Amenities') }}</h1>
       <div>
          <button class="btn btn-sm btn-danger btn-icon-split delete_all"
-            data-url="{{ route('admin.property-types.bulk-delete') }}">
+            data-url="{{ route('admin.amenities.bulk-delete') }}">
             <span class="icon text-white-50">
                <i class="fas fa-trash"></i>
             </span>
@@ -23,7 +23,7 @@
    </div>
    <div class="card shadow mb-4">
       <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary">{{ __('Property Types') }}</h6>
+         <h6 class="m-0 font-weight-bold text-primary">{{ __('Amenities') }}</h6>
       </div>
       <div class="card-body">
          <div class="table-responsive">
@@ -34,21 +34,21 @@
                <thead>
                   <tr>
                      <th><input type="checkbox"
-                           id="master"> <span class="px-3">{{__("Select all")}}</span></th>
+                           id="master"> <span class="px-3">{{ __('Select all') }}</span></th>
                      <th>{{ __('Name') }}</th>
                      <th>{{ __('Actions') }}</th>
                   </tr>
                </thead>
                <tbody>
-                  @foreach ($propertyTypes as $type)
+                  @foreach ($amenities as $amenity)
                      <tr>
                         <td><input type="checkbox"
                               class="sub_chk checkbox"
-                              data-id="{{ $type->id }}"></td>
-                        <td>{{ $type->name }}</td>
+                              data-id="{{ $amenity->id }}"></td>
+                        <td>{{ $amenity->name }}</td>
                         <td>
                            <form
-                              action="{{ route('admin.property-types.destroy', ['property_type' => $type->id]) }}"
+                              action="{{ route('admin.amenities.destroy', ['amenity' => $amenity->id]) }}"
                               method="post"
                               class="d-inline">
                               @csrf
@@ -61,13 +61,12 @@
                            <button type="submit"
                               class="d-inline btn btn-sm btn-primary shadow-sm"
                               data-toggle="modal"
-                              data-target="#editModal"
-                              data-whatever="{{ $type->name }}">
+                              data-target="#editModal">
                               <i class="fas fa-pencil"></i>
                            </button>
                         </td>
                      </tr>
-                     {{-- begin edit Property type modal --}}
+                     {{-- begin edit Amenity modal --}}
                      <div class="modal fade"
                         id="editModal"
                         tabindex="-1"
@@ -79,7 +78,7 @@
                            <div class="modal-content">
                               <div class="modal-header">
                                  <h5 class="modal-title"
-                                    id="editModalLabel">{{ __('Update Type') }}</h5>
+                                    id="editModalLabel">{{ __('Update Amenity') }}</h5>
                                  <a class="close"
                                     data-dismiss="modal"
                                     aria-label="Close">
@@ -87,8 +86,7 @@
                                  </a>
                               </div>
                               <div class="modal-body">
-                                 <form
-                                    action="{{ route('admin.property-types.update', [$type->id]) }}"
+                                 <form action="{{ route('admin.amenities.update', [$amenity->id]) }}"
                                     method="post">
                                     @csrf
                                     @method('put')
@@ -97,7 +95,7 @@
                                           class="col-form-label">{{ __('Name') }}:</label>
                                        <input type="text"
                                           class="form-control"
-                                          value="{{ $type->name }}"
+                                          value="{{ $amenity->name }}"
                                           name="name">
                                     </div>
                               </div>
@@ -119,7 +117,7 @@
          </div>
       </div>
    </div>
-   {{-- begin create new Property type modal --}}
+   {{-- begin create new amenity modal --}}
    <div class="modal fade"
       id="createModal"
       tabindex="-1"
@@ -131,7 +129,7 @@
          <div class="modal-content">
             <div class="modal-header">
                <h5 class="modal-title"
-                  id="createModalLabel">{{ __('New Type') }}</h5>
+                  id="createModalLabel">{{ __('New amenity') }}</h5>
                <a class="close"
                   data-dismiss="modal"
                   aria-label="Close">
@@ -139,7 +137,7 @@
                </a>
             </div>
             <div class="modal-body">
-               <form action="{{ route('admin.property-types.store') }}"
+               <form action="{{ route('admin.amenities.store') }}"
                   method="post">
                   @csrf
                   <div class="form-group">

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AmenityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Models\PropertyType;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,17 @@ use App\Http\Controllers\PropertyTypeController;
 
 Route::view('/', 'welcome');
 
-Route::resource('amenities', AmenityController::class);
 
 Route::middleware([SetLanguage::class])->prefix('admin/{locale}')->as('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::delete("amenities/bulk-delete", [AmenityController::class, 'bulkDelete'])
+        ->name('amenities.bulk-delete');
+    Route::delete("property-types/bulk-delete", [PropertyTypeController::class, 'bulkDelete'])
+        ->name('property-types.bulk-delete');
+
+    Route::resource('properties', PropertyController::class);
+    Route::resource('amenities', AmenityController::class);
     Route::resource('property-types', PropertyTypeController::class);
 });
 

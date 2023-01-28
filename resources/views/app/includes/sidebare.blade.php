@@ -26,7 +26,7 @@
 
    <!-- Heading -->
    <div class="sidebar-heading">
-     Property Managment
+      Property Managment
    </div>
    <!-- Nav Item - property types -->
    <li class="nav-item active">
@@ -35,31 +35,35 @@
          <i class="fa-solid fa-bars"></i>
          <span>Property Types</span></a>
    </li>
-   <!-- Nav Item - Utilities Collapse Menu -->
+   <!-- Nav Item - property amenities -->
+   <li class="nav-item active">
+      <a class="nav-link"
+         href="{{ route('admin.amenities.index') }}">
+         <i class="fa-solid fa-house-medical-circle-exclamation"></i>
+         <span>{{ __('Amenities') }}</span></a>
+   </li>
+   <!-- Nav Item - Property Collapse Menu -->
    <li class="nav-item">
       <a class="nav-link collapsed"
          href="#"
          data-toggle="collapse"
-         data-target="#collapseUtilities"
+         data-target="#collapseProperty"
          aria-expanded="true"
-         aria-controls="collapseUtilities">
+         aria-controls="collapseProperty">
          <i class="fas fa-fw fa-wrench"></i>
-         <span>Utilities</span>
+         <span>Property</span>
       </a>
-      <div id="collapseUtilities"
+      <div id="collapseProperty"
          class="collapse"
-         aria-labelledby="headingUtilities"
+         aria-labelledby="headingProperty"
          data-parent="#accordionSidebar">
          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
             <a class="collapse-item"
-               href="utilities-color.html">Colors</a>
+               href="{{ route('admin.property.index') }}">{{ __('List') }}</a>
             <a class="collapse-item"
-               href="utilities-border.html">Borders</a>
+               href="{{ route('admin.property.create') }}">{{ __('Create') }}</a>
             <a class="collapse-item"
-               href="utilities-animation.html">Animations</a>
-            <a class="collapse-item"
-               href="utilities-other.html">Other</a>
+               href="{{ route('admin.property.Edit') }}">{{ __('Edit') }}</a>
          </div>
       </div>
    </li>

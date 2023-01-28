@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Amenity;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class AmenityController extends Controller
@@ -15,19 +16,8 @@ class AmenityController extends Controller
     public function index()
     {
         $amenities = Amenity::all();
-        return view('admin.pages.amenity.index', ['amenities' => $amenities]);
+        return view('app.pages.property.amenities.index', compact('amenities'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.pages.amenity.create');
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,32 +26,20 @@ class AmenityController extends Controller
      */
     public function store(Request $request)
     {
+        $name = $request->name;
+
         $request->validate([
             'name' => 'required|unique:amenities',
-            'slug' => 'required'
         ]);
 
         Amenity::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
+            'name' => $name,
+            'slug' => Str::slug($name),
         ]);
 
-        return redirect()->back()->with([
-            'success' => 'Amenity Created Successfully'
-        ]);
+        toast('The Amenity has been submited!', 'success');
+        return redirect()->route("admin.amenities.index");
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Amenity $amenity)
-    {
-        return view('admin.pages.amenity.edit', ['amenity' => $amenity]);
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -69,21 +47,23 @@ class AmenityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Amenity $amenity)
+    public function update(Request $request)
     {
+        $name = $request->name;
+
         $request->validate([
             'name' => 'required|unique:amenities',
-            'slug' => 'required'
         ]);
+
+        $amenity = Amenity::find($request->amenity);
 
         $amenity->update([
             'name' => $request->name,
-            'slug' => $request->slug,
+            'slug' => Str::slug($name),
         ]);
 
-        return redirect()->back()->with([
-            'success' => 'Amenity Updated Successfully'
-        ]);
+        toast('The Amenity has been updated!', 'success');
+        return redirect()->route("admin.amenities.index");
     }
 
     /**
@@ -92,9 +72,25 @@ class AmenityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Amenity $amenity)
+    public function destroy(Request $request)
     {
-        $amenity->delete();
-        return back()->with(['success' => 'Amenity Deleted successfully']);
+        Amenity::find($request->amenity)->delete();
+
+        toast('The Amenity has been Deleted!', 'success');
+
+        return redirect()->route('admin.amenities.index');
+    }
+    /**
+     * Remove Multiple resource from storage.
+     *
+     * @param  array  $ids
+     */
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->ids;
+
+        Amenity::whereIn('id', explode(",", $ids))->delete();
+
+        return response()->json(['success' => 'the Amenities deleted!']);
     }
 }
