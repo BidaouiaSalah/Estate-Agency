@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('property_amenities', function (Blueprint $table) {
+        Schema::create('amenity_property', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('amenity_id');
             $table->unsignedBigInteger('property_id');

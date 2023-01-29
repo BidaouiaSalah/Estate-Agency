@@ -28,11 +28,11 @@ class PropertyTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->name;
-
         $request->validate([
-            'name' => 'required|unique:property_types',
+            'name' => 'required|unique:property_types|max:255',
         ]);
+
+        $name = $request->name;
 
         PropertyType::create(
             [
@@ -58,7 +58,7 @@ class PropertyTypeController extends Controller
         $name = $request->name;
 
         $request->validate([
-            'name' => 'required|unique:property_types',
+            'name' => 'required|unique:property_types|max:255',
         ]);
 
         $propertyType = PropertyType::find($request->property_type);
@@ -101,6 +101,6 @@ class PropertyTypeController extends Controller
 
         PropertyType::whereIn('id', explode(",", $ids))->delete();
 
-        return response()->json(['success' => 'the property deleted!']);
+        return response()->json(['success' => 'the properties has been deleted!']);
     }
 }

@@ -31,8 +31,9 @@ class PropertyFactory extends Factory
             'parking_spaces' => fake()->randomDigitNotNull(),
             'available' => 1,
             'pets_allowed' => rand(0, 1),
-            'type_id' => rand(1, 5),
-            'user_id' => rand(1, 10)
+            'type_id' => rand(1, 3),
+            'user_id' => rand(1, 10),
+            'transaction_type_id' => rand(1, 3),
         ];
     }
 }

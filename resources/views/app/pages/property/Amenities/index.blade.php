@@ -2,6 +2,9 @@
 @section('content')
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">{{ __('Amenities') }}</h1>
+      @if (count($errors) > 0)
+         @include('app.includes.alerts')
+      @endif
       <div>
          <button class="btn btn-sm btn-danger btn-icon-split delete_all"
             data-url="{{ route('admin.amenities.bulk-delete') }}">
@@ -54,7 +57,7 @@
                               @csrf
                               @method('delete')
                               <button type="submit"
-                                 class="btn btn-sm btn-danger shadow-sm show_confirm">
+                                 class="btn btn-sm btn-danger shadow-sm">
                                  <i class="fas fa-trash"></i>
                               </button>
                            </form>

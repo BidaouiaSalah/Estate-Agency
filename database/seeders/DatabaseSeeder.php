@@ -17,12 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            // RolesAndPermissionsSeeder::class,
-            // EstateTypeSeeder::class,
-            // CitySeeder::class,
-            // AmenitySeeder::class,
-            // UserSeeder::class,
-            // EstateSeeder::class,
+            TransactionTypeSeeder::class,
+            PropertyTypeSeeder::class,
+            AmenitySeeder::class,
+            UserSeeder::class,
+            PropertySeeder::class,
         ]);
     }
 }

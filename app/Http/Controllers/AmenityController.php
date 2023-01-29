@@ -29,7 +29,7 @@ class AmenityController extends Controller
         $name = $request->name;
 
         $request->validate([
-            'name' => 'required|unique:amenities',
+            'name' => 'required|unique:property_types|max:255',
         ]);
 
         Amenity::create([
@@ -52,7 +52,7 @@ class AmenityController extends Controller
         $name = $request->name;
 
         $request->validate([
-            'name' => 'required|unique:amenities',
+            'name' => 'required|unique:property_types|max:255',
         ]);
 
         $amenity = Amenity::find($request->amenity);

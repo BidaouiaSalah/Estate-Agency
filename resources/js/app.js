@@ -2,9 +2,12 @@ import "./bootstrap";
 import "./jquery.min";
 import "./bootstrap.bundle.min";
 import "./jquery.easing.min";
+import "./enchanter";
 import "./sb-admin-2.min";
 import "./jquery.dataTables.min";
 import "./dataTables.bootstrap4.min";
+
+
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -52,7 +55,12 @@ $(document).ready(function () {
                             $(".checkbox:checked").each(function () {
                                 $(this).parents("tr").remove();
                             });
-                            console.log(response.success);
+                            $(".sub_chk").prop("checked", false);
+                            $("#master").prop("checked", false);
+                            Swal.fire({
+                                title: "Success",
+                                text: "Select rows has been Deleted !",
+                            });
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -62,21 +70,4 @@ $(document).ready(function () {
         }
     });
 
-    // confirm single item delete sweet alert
-    $(".show_confirm").click(function (event) {
-        var form = $(this).closest("form");
-        var name = $(this).data("name");
-        event.preventDefault();
-        Swal.fire({
-            title: `Are you sure you want to delete this record?`,
-            text: "If you delete this, it will be gone forever.",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willDelete) => {
-            if (willDelete) {
-                form.submit();
-            }
-        });
-    });
 });

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Property;
+use App\Models\PropertyType;
+use App\Models\TransactionType;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -13,7 +16,12 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        //
+        $properties = Property::where('available', true)->get();
+
+
+        return view('app.pages.property.index', compact([
+            'properties' => $properties,
+        ]));
     }
 
     /**
@@ -23,7 +31,12 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        $transactionTypes = TransactionType::all();
+        $propertyTypes = PropertyType::all();
+
+        return view('app.pages.property.create', compact(
+            ['transactionTypes', 'propertyTypes']
+        ));
     }
 
     /**

@@ -2,6 +2,9 @@
 @section('content')
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">{{ __('Property Types') }}</h1>
+      @if (count($errors) > 0)
+         @include('app.includes.alerts')
+      @endif
       <div>
          <button class="btn btn-sm btn-danger btn-icon-split delete_all"
             data-url="{{ route('admin.property-types.bulk-delete') }}">
@@ -34,7 +37,7 @@
                <thead>
                   <tr>
                      <th><input type="checkbox"
-                           id="master"> <span class="px-3">{{__("Select all")}}</span></th>
+                           id="master"> <span class="px-3">{{ __('Select all') }}</span></th>
                      <th>{{ __('Name') }}</th>
                      <th>{{ __('Actions') }}</th>
                   </tr>
@@ -54,7 +57,7 @@
                               @csrf
                               @method('delete')
                               <button type="submit"
-                                 class="btn btn-sm btn-danger shadow-sm show_confirm">
+                                 class="btn btn-sm btn-danger shadow-sm">
                                  <i class="fas fa-trash"></i>
                               </button>
                            </form>
@@ -92,6 +95,7 @@
                                     method="post">
                                     @csrf
                                     @method('put')
+
                                     <div class="form-group">
                                        <label for="recipient-name"
                                           class="col-form-label">{{ __('Name') }}:</label>
@@ -139,6 +143,7 @@
                </a>
             </div>
             <div class="modal-body">
+
                <form action="{{ route('admin.property-types.store') }}"
                   method="post">
                   @csrf
