@@ -1,4 +1,4 @@
-@extends('app.layout')
+@extends('admin.layout')
 @section('content')
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">{{ __('Property Types') }}</h1>
@@ -37,7 +37,7 @@
                <thead>
                   <tr>
                      <th><input type="checkbox"
-                           id="master"> <span class="px-3">{{ __('Select all') }}</span></th>
+                           id="master"></th>
                      <th>{{ __('Name') }}</th>
                      <th>{{ __('Actions') }}</th>
                   </tr>

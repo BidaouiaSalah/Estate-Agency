@@ -17,7 +17,7 @@ class PropertyTypeController extends Controller
     {
         $propertyTypes = PropertyType::all();
 
-        return view('app.pages.property.types.index', compact('propertyTypes'));
+        return view('admin.property_types.index', compact('propertyTypes'));
     }
 
     /**

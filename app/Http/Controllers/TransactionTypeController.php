@@ -12,7 +12,7 @@ class TransactionTypeController extends Controller
     {
         $transactionTypes = TransactionType::all();
 
-        return view('app.pages.property.index_transaction_type', compact('transactionTypes'));
+        return view('admin.transaction_types.index', compact('transactionTypes'));
     }
 
     /**

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('address');
             $table->string('city');
-            $table->string('postale_code')->nullable();
+            $table->string('postal_code')->nullable();
             $table->decimal('space');
             $table->float('price');
             $table->integer('balconies')->nullable();

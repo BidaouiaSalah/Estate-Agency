@@ -34,7 +34,7 @@
       @include('sweetalert::alert')
 
       <!-- Sidebar -->
-      @include('app.includes.sidebare')
+      @include('admin.includes.sidebare')
       <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
@@ -45,7 +45,7 @@
          <div id="content">
 
             <!-- Topbar -->
-            @include('app.includes.nav')
+            @include('admin.includes.nav')
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->

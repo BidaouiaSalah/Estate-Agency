@@ -16,7 +16,7 @@ class AmenityController extends Controller
     public function index()
     {
         $amenities = Amenity::all();
-        return view('app.pages.property.amenities.index', compact('amenities'));
+        return view('admin.amenities.index', compact('amenities'));
     }
     /**
      * Store a newly created resource in storage.
