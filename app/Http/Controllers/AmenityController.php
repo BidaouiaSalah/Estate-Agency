@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Amenity;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class AmenityController extends Controller
 {
@@ -38,7 +39,13 @@ class AmenityController extends Controller
         ]);
 
         toast('The Amenity has been submited!', 'success');
-        return redirect()->route("admin.amenities.index");
+
+        if (!$request->routeIs("*.amenities") ) {
+            toast('The Amenity has been submited!', 'success');
+            return back();
+        } else {
+            return redirect()->route("admin.amenities.index");
+        }
     }
     /**
      * Update the specified resource in storage.

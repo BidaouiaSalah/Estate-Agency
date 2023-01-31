@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdatePropertyRequest;
+use App\Models\Amenity;
 use App\Models\Property;
 use App\Models\PropertyType;
 use App\Models\TransactionType;
@@ -32,9 +34,10 @@ class PropertyController extends Controller
     {
         $transactionTypes = TransactionType::all();
         $propertyTypes = PropertyType::all();
+        $amenities = Amenity::all();
 
         return view('admin.property.create', compact(
-            ['transactionTypes', 'propertyTypes']
+            ['transactionTypes', 'propertyTypes', 'amenities']
         ));
     }
 
@@ -44,8 +47,10 @@ class PropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdatePropertyRequest $request)
     {
+        dd($request->all());
+
         Property::create([
             'name' => $request->name,
             'description' => $request->description,

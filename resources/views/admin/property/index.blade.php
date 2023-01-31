@@ -16,6 +16,12 @@
                <i class="fas fa-plus fa-sm text-white-50"></i>
             </span>
             {{ __('Add new') }}</a>
+            <a href="{{ route('admin.properties.create') }}"
+            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <span class="icon text-white-50">
+               <i class="fas fa-plus fa-sm text-white-50"></i>
+            </span>
+            {{ __('Export to Execl') }}</a>
       </div>
    </div>
    <div class="card shadow mb-4">
