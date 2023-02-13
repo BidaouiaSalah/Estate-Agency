@@ -24,10 +24,10 @@ class StoreUpdatePropertyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:properties|max:255',
+            'title' => 'required|unique:properties|max:255',
             'description' => 'required',
             'address' => 'required',
-            'postale_code' => 'required|max:5',
+            'postale_code' => 'required|min:4|max:5',
             'city' => 'required',
             'space' => 'required',
             'price' => 'required',
@@ -37,7 +37,11 @@ class StoreUpdatePropertyRequest extends FormRequest
             'garages' => 'nullable',
             'parking_spaces' => 'nullable',
             'pets_allowed' => 'nullable',
-            'available' => true,
+            'available' => 'nullable',
+            'user_id'=> 'nullable',
+            'transaction_type'=> 'required',
+            'type_id'=> 'required',
+            'amenities'=> 'required'
         ];
     }
 }

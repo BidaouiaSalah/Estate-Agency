@@ -38,14 +38,13 @@
                   <tr>
                      <th><input type="checkbox"
                            id="master"></th>
-                     <th>{{ __('Name') }}</th>
+                     <th>{{ __('Title') }}</th>
                      <th>{{ __('Description') }}</th>
                      <th>{{ __('Address') }}</th>
                      <th>{{ __('City') }}</th>
                      <th>{{ __('Postale code') }}</th>
                      <th>{{ __('Property Type') }}</th>
                      <th>{{ __('Transaction Type') }}</th>
-                     <th>{{ __('Responsble') }}</th>
                      <th>{{ __('Price') }}</th>
                      <th>{{ __('Space') }}</th>
                      <th>{{ __('Balconies') }}</th>
@@ -64,14 +63,13 @@
                         <td><input type="checkbox"
                               class="sub_chk checkbox"
                               data-id="{{ $property->id }}"></td>
-                        <td>{{ $property->name }}</td>
+                        <td>{{ $property->title }}</td>
                         <td>{{ substr($property->description, 0, 10) }}</td>
                         <td>{{ $property->address }}</td>
                         <td>{{ $property->city }}</td>
-                        <td>{{ $property->postale_code }}</td>
+                        <td>{{ $property->postal_code }}</td>
                         <td>{{ $property->type->name }}</td>
                         <td>{{ $property->transactionType->name }}</td>
-                        <td>{{ $property->responsble }}</td>
                         <td>{{ $property->price }}</td>
                         <td>{{ $property->space }}</td>
                         <td>{{ $property->balconies }}</td>
@@ -93,7 +91,7 @@
                                  <i class="fas fa-trash"></i>
                               </button>
                            </form>
-                           <a href="{{ route('admin.properties.edit', ['property' => $property->id]) }}"
+                           <a href="{{ route('admin.properties.edit', ['property' => $property]) }}"
                               class="d-inline btn btn-sm btn-primary shadow-sm">
                               <i class="fas fa-pencil"></i>
                            </a>

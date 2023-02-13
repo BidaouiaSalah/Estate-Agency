@@ -45,7 +45,7 @@
    <li class="nav-item {{ request()->is('*/amenities') ? 'active' : '' }}">
       <a class="nav-link"
          href="{{ route('admin.amenities.index') }}">
-         <i class="fas fa-fw fa-info-circle"></i>
+         <i class="fa-solid fa-house-circle-exclamation"></i>
          <span>{{ __('Amenities') }}</span></a>
    </li>
    <!-- Nav Item - Property Collapse Menu -->

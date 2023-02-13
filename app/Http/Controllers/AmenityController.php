@@ -87,6 +87,7 @@ class AmenityController extends Controller
 
         return redirect()->route('admin.amenities.index');
     }
+    
     /**
      * Remove Multiple resource from storage.
      *

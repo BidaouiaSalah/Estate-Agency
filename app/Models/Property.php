@@ -11,6 +11,43 @@ class Property extends Model
 {
     use HasFactory;
 
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        
+        'title',
+ 
+        'description',
+         
+        'address',
+         
+        'postal_code',
+         'city',
+        'space',
+        'type_id',
+        'transaction_type_id',
+        'price',
+         
+        'balconies',
+         
+        'bedrooms',
+         
+        'bathrooms',
+         
+        'garages',
+         
+        'parking_spaces',
+         
+        'pets_allowed',
+         
+        'available',
+         
+        'user_id'
+    ];
+
     /**
      * Create a new factory instance for the model.
      *

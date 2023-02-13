@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
+            $table->string('title');
             $table->text('description');
             $table->text('address');
             $table->string('city');

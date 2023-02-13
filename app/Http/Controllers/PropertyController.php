@@ -37,7 +37,7 @@ class PropertyController extends Controller
         $amenities = Amenity::all();
 
         return view('admin.property.create', compact(
-            ['transactionTypes', 'propertyTypes', 'amenities']
+            'transactionTypes', 'propertyTypes', 'amenities'
         ));
     }
 
@@ -49,13 +49,15 @@ class PropertyController extends Controller
      */
     public function store(StoreUpdatePropertyRequest $request)
     {
-        dd($request->all());
 
-        Property::create([
-            'name' => $request->name,
+     $property =   Property::create([
+            'title' => $request->title,
             'description' => $request->description,
             'address' => $request->address,
-            'postale_code' => $request->postale_code,
+            'city'=> $request->city,
+            'type_id'=> $request->type_id,
+            'postal_code' => $request->postal_code,
+            'transaction_type_id' => $request->transaction_type,
             'space' => $request->space,
             'price' => $request->price,
             'balconies' => $request->balconies,
@@ -65,14 +67,14 @@ class PropertyController extends Controller
             'parking_spaces' => $request->parking_spaces,
             'pets_allowed' => $request->pets_allowed,
             'available' => true,
-            'assigned' => false,
-            'assignment_date' => $request->assignment_date,
-            'agent_id' => 1,
+            'user_id' => auth()->id(),
         ]);
 
-        return redirect()->back()->with([
-            'success' => 'Estate Created successfully'
-        ]);;
+        $property->amenities()->attach($request->amenities);
+
+        toast('The property has been created successfully!', 'success');
+
+        return redirect()->route('admin.properties.index');
     }
 
     /**
@@ -81,20 +83,29 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Property $property)
     {
-        //
+       
+        $property = Property::find($property);
+
+    return view('pages.property.show', compact('property'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Property $property)
     {
-        //
+
+        $transactionTypes = TransactionType::all();
+        $propertyTypes = PropertyType::all();
+        $amenities = Amenity::all();
+        
+
+        return view('admin.property.edit', compact(
+            'transactionTypes', 'propertyTypes', 'amenities','property'
+        ));
     }
 
     /**
@@ -104,14 +115,17 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdatePropertyRequest $request, Property $property)
     {
 
-        $request->update([
-            'name' => $request->name,
+        $property->update([
+            'title' => $request->title,
             'description' => $request->description,
             'address' => $request->address,
-            'postale_code' => $request->postale_code,
+            'city'=> $request->city,
+            'type_id'=> $request->type_id,
+            'postal_code' => $request->postal_code,
+            'transaction_type_id' => $request->transaction_type,
             'space' => $request->space,
             'price' => $request->price,
             'balconies' => $request->balconies,
@@ -121,13 +135,12 @@ class PropertyController extends Controller
             'parking_spaces' => $request->parking_spaces,
             'pets_allowed' => $request->pets_allowed,
             'available' => true,
-            'assigned' => true,
-            'assignment_date' => $request->assignment_date,
+            'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('estates.index')->with([
-            'success' => 'Estate Updated successfully'
-        ]);
+        toast('The property has been updated successfully', 'success');
+
+        return redirect()->route('admin.propery.index');
     }
 
     /**
@@ -136,8 +149,27 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Property $property)
     {
-        //
+        $proeprty = Property::find($property)->delete();
+
+        toast('The property has been deleted successfully', 'success');
+
+        return back();
+    }
+
+      
+        /**
+         * Remove multiple resource from storage
+         * 
+         * @param array $ids
+         */
+    public function bulkDelete(Request $request){
+
+        $ids = $request->ids;
+
+        Property::whereIn('id', '=', explode(',',$ids))->delete();
+
+        return response()->json(['success' => 'the Properties selected has been deleted!']);
     }
 }

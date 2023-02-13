@@ -1,15 +1,16 @@
 @extends('admin.layout')
 @section('content')
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">{{ __('Create new property') }}</h1>
+      <h1 class="h3 mb-0 text-gray-800">{{ __('Update property') }}</h1>
    </div>
    @if(count($errors) > 0)
    @include('admin.includes.alerts')
    @endif
    <div class="container">
-      <form action="{{ route('admin.properties.store') }}"
+      <form action="{{ route('admin.properties.update') }}"
          method="post">
          @csrf
+         @method('put')
          <div class="card mb-3">
             <div class="card-body">
                <div class="row mb-2">
@@ -18,6 +19,7 @@
                      <div class="col-sm">
                         <input type="text"
                            name="title"
+                           value="{{$property->title}}"
                            class="form-control"
                            placeholder="{{ __('A Nice Appartment') }}">
                      </div>
@@ -26,6 +28,7 @@
                         <input type="number"
                            name="price"
                            class="form-control"
+                           value="{{$property->price}}"
                            min="1"
                            placeholder="$">
                      </div>
@@ -59,6 +62,7 @@
                      <label class="col-form-label">{{ __('Description') }}</label>
                      <textarea name="description"
                         class="form-control"
+                        value="{{$property->description}}"
                         placeholder="{{ __('Exemple: Greate Neighborhoode') }}"></textarea>
                   </div>
                </div>
@@ -72,6 +76,7 @@
                      <input type="text"
                         class="form-control"
                         aria-label="address"
+                        value="{{$property->address}}"
                         placeholder="{{ __('Address') }}"
                         name="address">
                   </div>
@@ -80,6 +85,7 @@
                      <input type="text"
                         class="form-control"
                         aria-label="City"
+                        value="{{$property->city}}"
                         placeholder="{{ __('City') }}"
                         name="city">
                   </div>
@@ -89,6 +95,7 @@
                         class="form-control"
                         aria-label="postal_code"
                         placeholder="23034"
+                        value="{{$property->postal-code}}"
                         name="postale_code">
                   </div>
                </div>
@@ -111,7 +118,7 @@
                      <select name="amenities[]"
                         id="amenities"
                         multiple>
-                        @foreach ($amenities as $amenitie)
+                        @foreach ($property->amenities() as $amenitie)
                            <option value="{{ $amenitie->id }}">{{ $amenitie->name }}</option>
                         @endforeach
                      </select>
@@ -124,12 +131,14 @@
                         class="form-control"
                         max="10"
                         min="0"
+                        value="{{$property->balconies}}"
                         placeholder="{{ __('Balconies') }}"
                         name="balconies">
                   </div>
                   <div class="col-sm-4">
                      <label class="form-label">{{ __('Bedrooms') }}</label>
                      <input type="number"
+                        value="{{$property->bedrooms}}"
                         class="form-control"
                         placeholder="{{ __('Bedrooms') }}"
                         max="10"
@@ -139,6 +148,7 @@
                   <div class="col-sm-4">
                      <label class="form-label">{{ __('Bathrooms') }}</label>
                      <input type="number"
+                        value="{{$property->bathrooms}}"
                         class="form-control"
                         placeholder="{{ __('Bathrooms') }}"
                         max="10"
@@ -150,6 +160,7 @@
                   <div class="col-4">
                      <label class="form-label">{{ __('Garages') }}</label>
                      <input type="number"
+                        value="{{$property->garages}}"
                         class="form-control"
                         placeholder="{{ __('Garages') }}"
                         max="10"
@@ -159,6 +170,7 @@
                   <div class="col-4">
                      <label class="form-label">{{ __('Property Space') }}</label>
                      <input type="number"
+                        value="{{$property->space}}"
                         class="form-control"
                         placeholder="{{ __('100 m') }}"
                         max="10"
@@ -168,6 +180,7 @@
                   <div class="col-4">
                      <label class="form-label">{{ __('Parking spaces') }}</label>
                      <input type="number"
+                        value="{{$property->parking_spaces}}"
                         class="form-control"
                         placeholder="{{ __('Parking spaces') }}"
                         max="10"
