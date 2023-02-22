@@ -24,6 +24,7 @@
             {{ __('Export to Execl') }}</a>
       </div>
    </div>
+
    <div class="card shadow mb-4">
       <div class="card-header py-3">
          <h6 class="m-0 font-weight-bold text-primary">{{ __('Properties') }}</h6>
@@ -63,7 +64,8 @@
                         <td><input type="checkbox"
                               class="sub_chk checkbox"
                               data-id="{{ $property->id }}"></td>
-                        <td>{{ $property->title }}</td>
+                        <td> 
+                           {{ $property->title }}</td>
                         <td>{{ substr($property->description, 0, 10) }}</td>
                         <td>{{ $property->address }}</td>
                         <td>{{ $property->city }}</td>
@@ -81,7 +83,7 @@
                         <td>{{ $property->available }}</td>
                         <td>
                            <form
-                              action="{{ route('admin.properties.destroy', ['property' => $property->id]) }}"
+                              action="{{ route('admin.properties.destroy',['property' => $property->id]) }}"
                               method="post"
                               class="d-inline">
                               @csrf
@@ -91,7 +93,9 @@
                                  <i class="fas fa-trash"></i>
                               </button>
                            </form>
-                           <a href="{{ route('admin.properties.edit', ['property' => $property]) }}"
+                           <a href="{{ route('admin.properties.edit', [
+                              'property' => $property->id
+                              ] )}}" 
                               class="d-inline btn btn-sm btn-primary shadow-sm">
                               <i class="fas fa-pencil"></i>
                            </a>

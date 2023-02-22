@@ -93,9 +93,9 @@ class PropertyController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      */
-    public function edit(Property $property)
+    public function edit (Property $property)
     {
 
         $transactionTypes = TransactionType::all();

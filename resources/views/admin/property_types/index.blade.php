@@ -95,7 +95,6 @@
                                     method="post">
                                     @csrf
                                     @method('put')
-
                                     <div class="form-group">
                                        <label for="recipient-name"
                                           class="col-form-label">{{ __('Name') }}:</label>

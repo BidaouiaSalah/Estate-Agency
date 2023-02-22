@@ -72,4 +72,5 @@ class Property extends Model
     {
         return $this->belongsToMany(Amenity::class);
     }
+
 }

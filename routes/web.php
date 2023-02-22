@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\PropertyType;
-use Illuminate\Support\Facades\App;
+
 use App\Http\Middleware\SetLanguage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +9,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\TransactionTypeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +25,11 @@ use App\Http\Controllers\TransactionTypeController;
 Route::view('/', 'welcome');
 
 
-Route::middleware([SetLanguage::class])->prefix('admin/{locale}')->as('admin.')->group(function () {
+Route::prefix('admin/{locale}')->where(['locale' => '[a-zA-Z]+', 'middleware' => SetLanguage::class])->as('admin.')->group(function () {
+    Route::resource('properties', PropertyController::class);
+    Route::resource('amenities', AmenityController::class);
+    Route::resource('property-types', PropertyTypeController::class);
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('transaction-types', [TransactionTypeController::class, 'index'])->name('transaction-types.index');
@@ -39,9 +43,7 @@ Route::middleware([SetLanguage::class])->prefix('admin/{locale}')->as('admin.')-
     Route::delete('properties/bulk-delete', [PropertyController::class, 'bulkDelete'])
         ->name('properties.bulk-delete');
 
-    Route::resource('properties', PropertyController::class);
-    Route::resource('amenities', AmenityController::class);
-    Route::resource('property-types', PropertyTypeController::class);
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 });
 
 Auth::routes();

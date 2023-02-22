@@ -7,7 +7,7 @@
    @include('admin.includes.alerts')
    @endif
    <div class="container">
-      <form action="{{ route('admin.properties.update') }}"
+      <form action=""
          method="post">
          @csrf
          @method('put')
@@ -95,7 +95,7 @@
                         class="form-control"
                         aria-label="postal_code"
                         placeholder="23034"
-                        value="{{$property->postal-code}}"
+                        value="{{$property->postal_code}}"
                         name="postale_code">
                   </div>
                </div>
@@ -119,7 +119,7 @@
                         id="amenities"
                         multiple>
                         @foreach ($property->amenities() as $amenitie)
-                           <option value="{{ $amenitie->id }}">{{ $amenitie->name }}</option>
+                           <option value="{{ $amenitie->id ?? '' }}">{{ $amenitie->name ?? '' }}</option>
                         @endforeach
                      </select>
                   </div>

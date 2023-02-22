@@ -3,10 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL as URL;
 
 class SetLanguage
@@ -20,6 +18,7 @@ class SetLanguage
      */
     public function handle(Request $request, Closure $next)
     {
+        
         if ($request->route('locale') != null) {
 
             App::setLocale($request->route('locale'));
