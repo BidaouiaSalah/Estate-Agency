@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Amenity;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
-class AmenityController extends Controller
+class PropertyTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,11 @@ class AmenityController extends Controller
      */
     public function index()
     {
-        $amenities = Amenity::all();
-        return view('admin.amenities.index', compact('amenities'));
+        $propertyTypes = PropertyType::all();
+
+        return view('admin.property_types.index', compact('propertyTypes'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -27,26 +29,24 @@ class AmenityController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->name;
-
         $request->validate([
             'name' => 'required|unique:property_types|max:255',
         ]);
 
-        Amenity::create([
-            'name' => $name,
-            'slug' => Str::slug($name),
-        ]);
+        $name = $request->name;
 
-        toast('The Amenity has been submited!', 'success');
+        PropertyType::create(
+            [
+                'name' => $name,
+                'slug' => Str::slug($name)
+            ]
+        );
 
-        if (!$request->routeIs("*.amenities") ) {
-            toast('The Amenity has been submited!', 'success');
-            return back();
-        } else {
-            return redirect()->route("admin.amenities.index");
-        }
+        toast('The property Type has been submited!', 'success');
+
+        return redirect()->route('admin.property-types.index');
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -62,15 +62,18 @@ class AmenityController extends Controller
             'name' => 'required|unique:property_types|max:255',
         ]);
 
-        $amenity = Amenity::find($request->amenity);
+        $propertyType = PropertyType::find($request->property_type);
 
-        $amenity->update([
-            'name' => $request->name,
-            'slug' => Str::slug($name),
-        ]);
+        $propertyType->update(
+            [
+                'name' => $name,
+                'slug' => Str::slug($name)
+            ]
+        );
 
-        toast('The Amenity has been updated!', 'success');
-        return redirect()->route("admin.amenities.index");
+        toast('The property Type has been edited!', 'success');
+
+        return redirect()->route('admin.property-types.index');
     }
 
     /**
@@ -81,13 +84,13 @@ class AmenityController extends Controller
      */
     public function destroy(Request $request)
     {
-        Amenity::find($request->amenity)->delete();
+        PropertyType::find($request->property_type)->delete();
 
-        toast('The Amenity has been Deleted!', 'success');
+        toast('The property Type has been Deleted!', 'success');
 
-        return redirect()->route('admin.amenities.index');
+        return redirect()->route('admin.property-types.index');
     }
-    
+
     /**
      * Remove Multiple resource from storage.
      *
@@ -97,8 +100,8 @@ class AmenityController extends Controller
     {
         $ids = $request->ids;
 
-        Amenity::whereIn('id', explode(",", $ids))->delete();
+        PropertyType::whereIn('id', explode(",", $ids))->delete();
 
-        return response()->json(['success' => 'the Amenities deleted!']);
+        return response()->json(['success' => 'the properties has been deleted!']);
     }
 }

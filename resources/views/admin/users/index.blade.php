@@ -5,15 +5,6 @@
       @if (count($errors) > 0)
          @include('app.includes.alerts')
       @endif
-      <div>
-         <button class="btn btn-sm btn-danger btn-icon-split delete_all"
-            data-url="{{ route('admin.users.bulk-delete') }}">
-            <span class="icon text-white-50">
-               <i class="fas fa-trash"></i>
-            </span>
-            <span class="text">{{ __('Bulk delete') }}</span>
-         </button>
-      </div>
    </div>
    <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -38,10 +29,8 @@
                      <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->roles }}</td>
                         <td>
-                           <form
-                              action="{{ route('admin.users.destroy', ['user' => $user->id]) }}"
+                           <form action="{{ route('admin.Users.destroy', ['user' => $user->id]) }}"
                               method="post"
                               class="d-inline">
                               @csrf

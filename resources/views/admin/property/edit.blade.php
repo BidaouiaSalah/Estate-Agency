@@ -3,14 +3,14 @@
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">{{ __('Update property') }}</h1>
    </div>
-   @if(count($errors) > 0)
-   @include('admin.includes.alerts')
+   @if (count($errors) > 0)
+      @include('admin.includes.alerts')
    @endif
    <div class="container">
-      <form action=""
+      <form action="{{ route('admin.properties.update', ['property' => $property->id]) }}"
          method="post">
          @csrf
-         @method('put')
+         @method('PUT')
          <div class="card mb-3">
             <div class="card-body">
                <div class="row mb-2">
@@ -19,7 +19,7 @@
                      <div class="col-sm">
                         <input type="text"
                            name="title"
-                           value="{{$property->title}}"
+                           value="{{ $property->title }}"
                            class="form-control"
                            placeholder="{{ __('A Nice Appartment') }}">
                      </div>
@@ -28,7 +28,7 @@
                         <input type="number"
                            name="price"
                            class="form-control"
-                           value="{{$property->price}}"
+                           value="{{ $property->price }}"
                            min="1"
                            placeholder="$">
                      </div>
@@ -39,7 +39,6 @@
                      <label class="col-form-label">{{ __('Type of Transaction') }}</label>
                      <select class="custom-select"
                         name="transaction_type">
-                        <option selected>Open this select menu</option>
                         @foreach ($transactionTypes as $transactionType)
                            <option value="{{ $transactionType->id }}">{{ $transactionType->name }}
                            </option>
@@ -50,7 +49,6 @@
                      <label class="col-form-label">{{ __('Type of Property') }}</label>
                      <select class="custom-select"
                         name="type_id">
-                        <option selected>Open this select menu</option>
                         @foreach ($propertyTypes as $propertyType)
                            <option value="{{ $propertyType->id }}">{{ $propertyType->name }}</option>
                         @endforeach
@@ -62,7 +60,7 @@
                      <label class="col-form-label">{{ __('Description') }}</label>
                      <textarea name="description"
                         class="form-control"
-                        value="{{$property->description}}"
+                        value="{{ $property->description }}"
                         placeholder="{{ __('Exemple: Greate Neighborhoode') }}"></textarea>
                   </div>
                </div>
@@ -76,7 +74,7 @@
                      <input type="text"
                         class="form-control"
                         aria-label="address"
-                        value="{{$property->address}}"
+                        value="{{ $property->address }}"
                         placeholder="{{ __('Address') }}"
                         name="address">
                   </div>
@@ -85,7 +83,7 @@
                      <input type="text"
                         class="form-control"
                         aria-label="City"
-                        value="{{$property->city}}"
+                        value="{{ $property->city }}"
                         placeholder="{{ __('City') }}"
                         name="city">
                   </div>
@@ -95,7 +93,7 @@
                         class="form-control"
                         aria-label="postal_code"
                         placeholder="23034"
-                        value="{{$property->postal_code}}"
+                        value="{{ $property->postal_code }}"
                         name="postale_code">
                   </div>
                </div>
@@ -118,8 +116,9 @@
                      <select name="amenities[]"
                         id="amenities"
                         multiple>
-                        @foreach ($property->amenities() as $amenitie)
-                           <option value="{{ $amenitie->id ?? '' }}">{{ $amenitie->name ?? '' }}</option>
+                        @foreach ($property->amenities as $amenity)
+                           <option value="{{ $amenity->id ?? '' }}">{{ $amenity->name ?? '' }}
+                           </option>
                         @endforeach
                      </select>
                   </div>
@@ -131,14 +130,14 @@
                         class="form-control"
                         max="10"
                         min="0"
-                        value="{{$property->balconies}}"
+                        value="{{ $property->balconies }}"
                         placeholder="{{ __('Balconies') }}"
                         name="balconies">
                   </div>
                   <div class="col-sm-4">
                      <label class="form-label">{{ __('Bedrooms') }}</label>
                      <input type="number"
-                        value="{{$property->bedrooms}}"
+                        value="{{ $property->bedrooms }}"
                         class="form-control"
                         placeholder="{{ __('Bedrooms') }}"
                         max="10"
@@ -148,7 +147,7 @@
                   <div class="col-sm-4">
                      <label class="form-label">{{ __('Bathrooms') }}</label>
                      <input type="number"
-                        value="{{$property->bathrooms}}"
+                        value="{{ $property->bathrooms }}"
                         class="form-control"
                         placeholder="{{ __('Bathrooms') }}"
                         max="10"
@@ -160,7 +159,7 @@
                   <div class="col-4">
                      <label class="form-label">{{ __('Garages') }}</label>
                      <input type="number"
-                        value="{{$property->garages}}"
+                        value="{{ $property->garages }}"
                         class="form-control"
                         placeholder="{{ __('Garages') }}"
                         max="10"
@@ -170,7 +169,7 @@
                   <div class="col-4">
                      <label class="form-label">{{ __('Property Space') }}</label>
                      <input type="number"
-                        value="{{$property->space}}"
+                        value="{{ $property->space }}"
                         class="form-control"
                         placeholder="{{ __('100 m') }}"
                         max="10"
@@ -180,7 +179,7 @@
                   <div class="col-4">
                      <label class="form-label">{{ __('Parking spaces') }}</label>
                      <input type="number"
-                        value="{{$property->parking_spaces}}"
+                        value="{{ $property->parking_spaces }}"
                         class="form-control"
                         placeholder="{{ __('Parking spaces') }}"
                         max="10"
@@ -194,8 +193,7 @@
                         class="custom-control-input"
                         name="pets_allowed"
                         id='pets_allowed'
-                        value='1'
-                        >
+                        value='1'>
                      <label class="custom-control-label"
                         for="pets_allowed">Check this if pets are allowed</label>
                   </div>
@@ -212,7 +210,8 @@
                   class="custom-file-input"
                   id="inputGroupFile01"
                   name="media"
-                  aria-describedby="inputGroupFileAddon01" multiple>
+                  aria-describedby="inputGroupFileAddon01"
+                  multiple>
                <label class="custom-file-label"
                   for="inputGroupFile01">Choose Property Images</label>
             </div>
@@ -221,48 +220,48 @@
             class="btn btn-primary btn-lg btn-block">{{ __('Create new Property') }}</button>
       </form>
 
-       <!-- begin create new amenity modal 
-      <div class="modal fade"
-         id="createModal"
-         tabindex="-1"
-         role="dialog"
-         aria-labelledby="createModalLabel"
-         aria-hidden="true">
-         <div class="modal-dialog"
-            role="document">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title"
-                     id="createModalLabel">{{ __('New amenity') }}</h5>
-                  <a class="close"
-                     data-dismiss="modal"
-                     aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                  </a>
-               </div>
-               <div class="modal-body">
-                  <form action="{{ route('admin.amenities.store') }}"
-                     method="post">
-                     @csrf
-                     <div class="form-group">
-                        <label for="recipient-name"
-                           class="col-form-label">{{ __('Name') }}</label>
-                        <input type="text"
-                           class="form-control"
-                           name="name">
+      <!-- begin create new amenity modal
+                  <div class="modal fade"
+                     id="createModal"
+                     tabindex="-1"
+                     role="dialog"
+                     aria-labelledby="createModalLabel"
+                     aria-hidden="true">
+                     <div class="modal-dialog"
+                        role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h5 class="modal-title"
+                                 id="createModalLabel">{{ __('New amenity') }}</h5>
+                              <a class="close"
+                                 data-dismiss="modal"
+                                 aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                              </a>
+                           </div>
+                           <div class="modal-body">
+                              <form action="{{ route('admin.amenities.store') }}"
+                                 method="post">
+                                 @csrf
+                                 <div class="form-group">
+                                    <label for="recipient-name"
+                                       class="col-form-label">{{ __('Name') }}</label>
+                                    <input type="text"
+                                       class="form-control"
+                                       name="name">
+                                 </div>
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button"
+                                 class="btn btn-secondary"
+                                 data-dismiss="modal">{{ __('Close') }}</button>
+                              <button type="submit"
+                                 class="btn btn-primary">{{ __('Save') }}</button>
+                           </div>
+                           </form>
+                        </div>
                      </div>
-               </div>
-               <div class="modal-footer">
-                  <button type="button"
-                     class="btn btn-secondary"
-                     data-dismiss="modal">{{ __('Close') }}</button>
-                  <button type="submit"
-                     class="btn btn-primary">{{ __('Save') }}</button>
-               </div>
-               </form>
-            </div>
-         </div>
-      </div> 
-      end create model  -->
+                  </div>
+                  end create model  -->
    </div>
 @endsection

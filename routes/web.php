@@ -1,15 +1,16 @@
 <?php
 
 
-use App\Http\Middleware\SetLanguage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AmenityController;
-use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PropertyTypeController;
-use App\Http\Controllers\TransactionTypeController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomePropertyController;
+use App\Http\Controllers\Admin\AmenityController;
+use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Admin\PropertyTypeController;
+use App\Http\Controllers\Admin\TransactionTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,8 @@ use App\Http\Controllers\UserController;
 | contains the 'web' middleware group. Now create something great!
 |
 */
-
-Route::view('/', 'welcome');
-
-
-Route::prefix('admin/{locale}')->where(['locale' => '[a-zA-Z]+', 'middleware' => SetLanguage::class])->as('admin.')->group(function () {
+// addmin routes
+Route::middleware('set_language', 'auth')->prefix('admin/{locale}')->as('admin.')->group(function () {
     Route::resource('properties', PropertyController::class);
     Route::resource('amenities', AmenityController::class);
     Route::resource('property-types', PropertyTypeController::class);
@@ -43,7 +41,18 @@ Route::prefix('admin/{locale}')->where(['locale' => '[a-zA-Z]+', 'middleware' =>
     Route::delete('properties/bulk-delete', [PropertyController::class, 'bulkDelete'])
         ->name('properties.bulk-delete');
 
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+
+    Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
+});
+
+// home page routes
+Route::middleware('set_language')->group(function () {
+    Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('about', [HomeController::class, 'about'])->name('about');
+
+    Route::get('properties', [HomePropertyController::class, 'index'])->name('properties.index');
+    Route::get('propertes/{property}', [HomePropertyController::class, 'show'])->name('properties.show');
 });
 
 Auth::routes();

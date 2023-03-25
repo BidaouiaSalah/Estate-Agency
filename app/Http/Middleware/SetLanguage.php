@@ -18,12 +18,11 @@ class SetLanguage
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        if ($request->route('locale') != null) {
 
+        if ($request->route('locale') != null) {
             App::setLocale($request->route('locale'));
-            
-            URL::defaults(['locale' => App()->getLocale()]);
+
+            URL::defaults(['locale' => App()->getLocale(), 'property'=> $request->property]);
         }
 
         return $next($request);

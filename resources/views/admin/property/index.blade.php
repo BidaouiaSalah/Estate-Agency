@@ -16,12 +16,6 @@
                <i class="fas fa-plus fa-sm text-white-50"></i>
             </span>
             {{ __('Add new') }}</a>
-            <a href="{{ route('admin.properties.create') }}"
-            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <span class="icon text-white-50">
-               <i class="fas fa-plus fa-sm text-white-50"></i>
-            </span>
-            {{ __('Export to Execl') }}</a>
       </div>
    </div>
 
@@ -40,19 +34,13 @@
                      <th><input type="checkbox"
                            id="master"></th>
                      <th>{{ __('Title') }}</th>
-                     <th>{{ __('Description') }}</th>
                      <th>{{ __('Address') }}</th>
                      <th>{{ __('City') }}</th>
-                     <th>{{ __('Postale code') }}</th>
+                     <th>{{ __('Postal code') }}</th>
                      <th>{{ __('Property Type') }}</th>
                      <th>{{ __('Transaction Type') }}</th>
                      <th>{{ __('Price') }}</th>
                      <th>{{ __('Space') }}</th>
-                     <th>{{ __('Balconies') }}</th>
-                     <th>{{ __('Bedrooms') }}</th>
-                     <th>{{ __('Bathrooms') }}</th>
-                     <th>{{ __('Garages') }}</th>
-                     <th>{{ __('Parking spaces') }}</th>
                      <th>{{ __('Are Pets allowed') }}</th>
                      <th>{{ __('Available') }}</th>
                      <th>{{ __('Actions') }}</th>
@@ -64,9 +52,7 @@
                         <td><input type="checkbox"
                               class="sub_chk checkbox"
                               data-id="{{ $property->id }}"></td>
-                        <td> 
-                           {{ $property->title }}</td>
-                        <td>{{ substr($property->description, 0, 10) }}</td>
+                        <td>{{ $property->title }}</td>
                         <td>{{ $property->address }}</td>
                         <td>{{ $property->city }}</td>
                         <td>{{ $property->postal_code }}</td>
@@ -74,31 +60,33 @@
                         <td>{{ $property->transactionType->name }}</td>
                         <td>{{ $property->price }}</td>
                         <td>{{ $property->space }}</td>
-                        <td>{{ $property->balconies }}</td>
-                        <td>{{ $property->bedrooms }}</td>
-                        <td>{{ $property->bathrooms }}</td>
-                        <td>{{ $property->garages }}</td>
-                        <td>{{ $property->parking_spaces }}</td>
                         <td>{{ $property->pets_allowed }}</td>
-                        <td>{{ $property->available }}</td>
+                        <td>
+                           <span class="{{ $property->available ? 'badge badge-success' : 'badge badge-danger' }}">Success</span>
+                        </td>
                         <td>
                            <form
-                              action="{{ route('admin.properties.destroy',['property' => $property->id]) }}"
+                              action="{{ route('admin.properties.destroy', ['property' => $property->id]) }}"
                               method="post"
                               class="d-inline">
                               @csrf
                               @method('delete')
                               <button type="submit"
-                                 class="btn btn-sm btn-danger shadow-sm">
+                                 class="btn btn-danger btn-circle btn-sm">
                                  <i class="fas fa-trash"></i>
                               </button>
                            </form>
-                           <a href="{{ route('admin.properties.edit', [
-                              'property' => $property->id
-                              ] )}}" 
-                              class="d-inline btn btn-sm btn-primary shadow-sm">
+                           <a href="{{ route('admin.properties.edit', ['property' => $property->id]) }}"
+                              class="btn btn-primary btn-circle btn-sm">
                               <i class="fas fa-pencil"></i>
                            </a>
+                           <button type="button"
+                              class="btn btn-success btn-circle btn-sm"
+                              data-toggle="modal"
+                              data-target="#propertyPreviewModal"
+                              data-whatever="@mdo">
+                              <i class="fas fa-eye"></i></button>
+                           @include('admin.property.show')
                         </td>
                      </tr>
                   @endforeach

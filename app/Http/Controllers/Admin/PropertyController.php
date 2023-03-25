@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdatePropertyRequest;
+use Illuminate\Http\Request;
+use App\Models\TransactionType;
+use App\Models\PropertyType;
 use App\Models\Amenity;
 use App\Models\Property;
-use App\Models\PropertyType;
-use App\Models\TransactionType;
-use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
@@ -18,7 +19,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::where('available', true)->get();
+        $properties = Property::with('amenities')->where('available', true)->get();
 
         return view('admin.property.index', compact(
             'properties'
@@ -37,7 +38,9 @@ class PropertyController extends Controller
         $amenities = Amenity::all();
 
         return view('admin.property.create', compact(
-            'transactionTypes', 'propertyTypes', 'amenities'
+            'transactionTypes',
+            'propertyTypes',
+            'amenities'
         ));
     }
 
@@ -49,13 +52,12 @@ class PropertyController extends Controller
      */
     public function store(StoreUpdatePropertyRequest $request)
     {
-
-     $property =   Property::create([
+        $property =   Property::create([
             'title' => $request->title,
             'description' => $request->description,
             'address' => $request->address,
-            'city'=> $request->city,
-            'type_id'=> $request->type_id,
+            'city' => $request->city,
+            'type_id' => $request->type_id,
             'postal_code' => $request->postal_code,
             'transaction_type_id' => $request->transaction_type,
             'space' => $request->space,
@@ -72,6 +74,10 @@ class PropertyController extends Controller
 
         $property->amenities()->attach($request->amenities);
 
+        if ($request->hasFile('image')) {
+            $property->addMediaFromRequest('image')->toMediaCollection('images');
+        }
+
         toast('The property has been created successfully!', 'success');
 
         return redirect()->route('admin.properties.index');
@@ -85,27 +91,30 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-       
-        $property = Property::find($property);
 
-    return view('pages.property.show', compact('property'));
+        $property = Property::with('amenities')->find($property);
+
+        return view('pages.property.show', compact('property'));
     }
 
     /**
      * Show the form for editing the specified resource.
      * @param  \Illuminate\Http\Request  $request
      */
-    public function edit (Property $property)
+    public function edit(Request $request)
     {
+        $property = Property::with('amenities')->find($request->property);
 
         $transactionTypes = TransactionType::all();
         $propertyTypes = PropertyType::all();
         $amenities = Amenity::all();
-        
 
-        return view('admin.property.edit', compact(
-            'transactionTypes', 'propertyTypes', 'amenities','property'
-        ));
+        return view('admin.property.edit', [
+            'property' => $property,
+            'transactionTypes' => $transactionTypes,
+            'propertyTypes' => $propertyTypes,
+            'amenities' => $amenities
+        ]);
     }
 
     /**
@@ -115,15 +124,17 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdatePropertyRequest $request, Property $property)
+    public function update(StoreUpdatePropertyRequest $request)
     {
+
+        $property = Property::with('amenities')->find($request->property);
 
         $property->update([
             'title' => $request->title,
             'description' => $request->description,
             'address' => $request->address,
-            'city'=> $request->city,
-            'type_id'=> $request->type_id,
+            'city' => $request->city,
+            'type_id' => $request->type_id,
             'postal_code' => $request->postal_code,
             'transaction_type_id' => $request->transaction_type,
             'space' => $request->space,
@@ -140,7 +151,7 @@ class PropertyController extends Controller
 
         toast('The property has been updated successfully', 'success');
 
-        return redirect()->route('admin.propery.index');
+        return redirect()->route('admin.properties.index');
     }
 
     /**
@@ -149,26 +160,27 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy(Request $request)
     {
-        $proeprty = Property::find($property)->delete();
+        Property::find($request->property)->delete();
 
         toast('The property has been deleted successfully', 'success');
 
         return back();
     }
 
-      
-        /**
-         * Remove multiple resource from storage
-         * 
-         * @param array $ids
-         */
-    public function bulkDelete(Request $request){
+
+    /**
+     * Remove multiple resource from storage
+     *
+     * @param array $ids
+     */
+    public function bulkDelete(Request $request)
+    {
 
         $ids = $request->ids;
 
-        Property::whereIn('id', '=', explode(',',$ids))->delete();
+        Property::whereIn('id', '=', explode(',', $ids))->delete();
 
         return response()->json(['success' => 'the Properties selected has been deleted!']);
     }

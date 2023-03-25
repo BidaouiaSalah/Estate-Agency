@@ -3,48 +3,39 @@
 namespace App\Models;
 
 use App\Models\TransactionType;
+use Spatie\MediaLibrary\HasMedia;
 use Database\Factories\PropertyFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Property extends Model
+class Property extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        
         'title',
- 
         'description',
-         
         'address',
-         
         'postal_code',
-         'city',
+        'city',
         'space',
         'type_id',
         'transaction_type_id',
         'price',
-         
         'balconies',
-         
         'bedrooms',
-         
         'bathrooms',
-         
         'garages',
-         
         'parking_spaces',
-         
         'pets_allowed',
-         
         'available',
-         
         'user_id'
     ];
 
@@ -73,4 +64,11 @@ class Property extends Model
         return $this->belongsToMany(Amenity::class);
     }
 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('grid')
+            ->width(600)
+            ->height(1000)
+            ->sharpen(10);
+    }
 }

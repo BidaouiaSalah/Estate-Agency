@@ -27,7 +27,7 @@ class StoreUpdatePropertyRequest extends FormRequest
             'title' => 'required|unique:properties|max:255',
             'description' => 'required',
             'address' => 'required',
-            'postale_code' => 'required|min:4|max:5',
+            'postale_code' => 'required|min:4',
             'city' => 'required',
             'space' => 'required',
             'price' => 'required',
@@ -37,11 +37,24 @@ class StoreUpdatePropertyRequest extends FormRequest
             'garages' => 'nullable',
             'parking_spaces' => 'nullable',
             'pets_allowed' => 'nullable',
-            'available' => 'nullable',
-            'user_id'=> 'nullable',
-            'transaction_type'=> 'required',
-            'type_id'=> 'required',
-            'amenities'=> 'required'
+            'available' => 'nullable', //update later
+            'user_id' => 'nullable',
+            'transaction_type' => 'required',
+            'type_id' => 'required',
+            'amenities' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,jfif|dimensions:min_width=500,min_height=700|max:3000'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'image.dimensions' => 'the image dimensions must be in min_width=600,min_height=800'
         ];
     }
 }
