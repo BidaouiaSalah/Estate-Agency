@@ -17,7 +17,7 @@ class PropertyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'title' => fake()->name(),
             'description' => fake()->text(),
             'address' => fake()->address(),
             'city' => fake()->city(),

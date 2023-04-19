@@ -24,19 +24,9 @@ class User extends Authenticatable
         return UserFactory::new();
     }
 
-    public function estate()
+    public function properties()
     {
-        return $this->hasMany(Estate::class);
-    }
-
-    public function contract()
-    {
-        return $this->hasMany(Contract::class);
-    }
-
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
+        return $this->hasMany(Property::class);
     }
 
     /**
@@ -48,6 +38,7 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'address',
         'password',
     ];
 

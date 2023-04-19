@@ -26,6 +26,9 @@
 </head>
 
 <body>
+   <!-- Form search section -->
+   @include('partials.search-section')
+
    <!-- Home page navbare section -->
    @include('includes.navbare')
 

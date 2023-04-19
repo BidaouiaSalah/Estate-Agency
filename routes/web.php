@@ -1,16 +1,19 @@
 <?php
 
 
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomePropertyController;
-use App\Http\Controllers\Admin\AmenityController;
-use App\Http\Controllers\Admin\PropertyController;
-use App\Http\Controllers\Admin\PropertyTypeController;
-use App\Http\Controllers\Admin\TransactionTypeController;
+use App\Http\Controllers\admin\AmenityController;
+use App\Http\Controllers\admin\PropertyController;
+use App\Http\Controllers\agents_auth\LoginController;
+use App\Http\Controllers\admin\PropertyTypeController;
+use App\Http\Controllers\agents_auth\LogoutController;
+use App\Http\Controllers\agents_auth\RegisterController;
+use App\Http\Controllers\admin\TransactionTypeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +25,11 @@ use App\Http\Controllers\Admin\TransactionTypeController;
 | contains the 'web' middleware group. Now create something great!
 |
 */
-// addmin routes
+// admin routes
 Route::middleware('set_language', 'auth')->prefix('admin/{locale}')->as('admin.')->group(function () {
-    Route::resource('properties', PropertyController::class);
-    Route::resource('amenities', AmenityController::class);
-    Route::resource('property-types', PropertyTypeController::class);
-
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::get('agents', [AgentController::class, 'index'])->name('agents.index');
 
     Route::get('transaction-types', [TransactionTypeController::class, 'index'])->name('transaction-types.index');
     Route::post('transaction-types', [TransactionTypeController::class, 'store'])->name('transaction-types.store');
@@ -41,12 +42,12 @@ Route::middleware('set_language', 'auth')->prefix('admin/{locale}')->as('admin.'
     Route::delete('properties/bulk-delete', [PropertyController::class, 'bulkDelete'])
         ->name('properties.bulk-delete');
 
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
-
-    Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::resource('properties', PropertyController::class);
+    Route::resource('amenities', AmenityController::class);
+    Route::resource('property-types', PropertyTypeController::class);
 });
 
-// home page routes
+// Main routes
 Route::middleware('set_language')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('about', [HomeController::class, 'about'])->name('about');
@@ -55,4 +56,12 @@ Route::middleware('set_language')->group(function () {
     Route::get('propertes/{property}', [HomePropertyController::class, 'show'])->name('properties.show');
 });
 
-Auth::routes();
+Route::get('agents/register', [RegisterController::class, 'showRegistrationForm'])
+    ->name('showRegistrationForm');
+Route::post('agents/register', [RegisterController::class, 'register'])
+    ->name('register');
+Route::get('agents/login', [LoginController::class, 'showLoginForm'])
+    ->name('login.showLoginForm');
+Route::post('agents/login', [LoginController::class, 'login'])
+    ->name('login');
+Route::post('logout', [LogoutController::class, 'logout'])->name('logout');

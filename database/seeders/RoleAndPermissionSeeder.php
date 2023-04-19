@@ -16,16 +16,8 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create(['name' => 'edit-property']);
-        Permission::create(['name' => 'delete-property']);
-
-        $roleAgent = Role::create(['name' => 'agent']);
-        $roleAdmin = Role::create(['name' => 'admin']);
-        $roleClient = Role::create(['name' => 'client']);
-
-        $roleAgent->givePermissionTo([
-            'edit-property',
-            'delete-property'
-        ]);
+        $roleSuperAdmin = Role::create(['name' => 'admin']);
+        $roleAgency = Role::create(['name' => 'agent']);
+        $roleAgent = Role::create(['name' => 'client']);
     }
 }

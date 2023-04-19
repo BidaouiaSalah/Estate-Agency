@@ -13,7 +13,7 @@
    <meta name="author"
       content="">
 
-   <title>Estate Agency</title>
+   <title>Reagister as Estate Privat Owner</title>
 
    <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -53,12 +53,15 @@
                            <div class="col-lg-7">
                               <div class="p-5">
                                  <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">{{ __('Create an Account!') }}
+                                    <h1 class="h4 text-gray-900 mb-4">{{ __('Creat Account!') }}
                                     </h1>
                                  </div>
+                                 @if (count($errors) > 0)
+                                    @include('admin.includes.alerts')
+                                 @endif
                                  <form class="user"
                                     method="POST"
-                                    action="{{ route('register') }}">
+                                    action="">
                                     @csrf
                                     <div class="form-group row">
                                        <div class="col-sm-6 mb-3 mb-sm-0">
@@ -173,7 +176,9 @@
                                  <hr>
                                  <div class="text-center">
                                     <a class="small"
-                                       href="{{ route('login') }}">Already have an account?
+                                       href="{{ route('login.showLoginForm') }}">Already have
+                                       an
+                                       account?
                                        Login!</a>
                                  </div>
                               </div>

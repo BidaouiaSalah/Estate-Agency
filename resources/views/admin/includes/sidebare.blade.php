@@ -8,18 +8,26 @@
          <i class="fas fa-laugh-wink"></i>
       </div>
       <div class="sidebar-brand-text mx-3">
-         {{ auth()->user()->hasRole('admin')? __('Hi Admin'): __('Hi Agent') }}</div>
+         {{ __('Hey Admin!') }}</div>
    </a>
 
    <!-- Divider -->
    <hr class="sidebar-divider my-0">
+
+   <!-- Nav Item - Home -->
+   <li class="nav-item active">
+      <a class="nav-link"
+         href="{{ route('home') }}">
+         <i class="fas fa-fw fa-home"></i>
+         <span>{{ __('Home') }}</span></a>
+   </li>
 
    <!-- Nav Item - Dashboard -->
    <li class="nav-item active">
       <a class="nav-link"
          href="{{ route('admin.dashboard.index') }}">
          <i class="fas fa-fw fa-tachometer-alt"></i>
-         <span>Dashboard</span></a>
+         <span>{{ __('Dashboard') }}</span></a>
    </li>
 
    <!-- Divider -->
@@ -29,31 +37,7 @@
    <div class="sidebar-heading">
       Property Managment
    </div>
-
-   @role('admin')
-      <li class="nav-item {{ request()->is('*transaction-types') ? 'active' : '' }}">
-         <a class="nav-link"
-            href="{{ route('admin.transaction-types.index') }}">
-            <i class="fa-solid fa-table"></i>
-            <span>{{ __('Transaction Types') }}</span></a>
-      </li>
-      <!-- Nav Item - property types -->
-      <li class="nav-item {{ request()->is('*/property-types') ? 'active' : '' }}">
-         <a class="nav-link"
-            href="{{ route('admin.property-types.index') }}">
-            <i class="fa-solid fa-bars"></i>
-            <span>Property Types</span></a>
-      </li>
-      <!-- Nav Item - property amenities -->
-      <li class="nav-item {{ request()->is('*/amenities') ? 'active' : '' }}">
-         <a class="nav-link"
-            href="{{ route('admin.amenities.index') }}">
-            <i class="fa-solid fa-house-circle-exclamation"></i>
-            <span>{{ __('Amenities') }}</span></a>
-      </li>
-   @endrole
-
-   <!-- Nav Item - Property Collapse Menu -->
+   <!-- Nav Item - Properties Collapse Menu -->
    <li class="nav-item">
       <a class="nav-link collapsed"
          href="#"
@@ -61,7 +45,7 @@
          data-target="#collapseProperty"
          aria-expanded="true"
          aria-controls="collapseProperty">
-         <i class="fas fa-fw fa-house"></i>
+         <i class="fas fa-fw fa-list"></i>
          <span>Properties</span>
       </a>
       <div id="collapseProperty"
@@ -76,30 +60,69 @@
          </div>
       </div>
    </li>
-   <!-- Nav Item - Pages Collapse Menu -->
-   <!-- Divider -->
-   @role('admin')
-      <hr class="sidebar-divider">
-      <!-- Heading -->
-      <div class="sidebar-heading">
-         {{ __('Users Managment') }}
-      </div>
-      <li class="nav-item">
-         <a class="nav-link"
-            href="#">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>{{ __('Clients') }}</span>
-         </a>
-      </li>
-      <li class="nav-item">
-         <a class="nav-link"
-            href="#">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>{{ __('Agents') }}</span>
-         </a>
-      </li>
-   @endrole
 
+   <!-- Nav Item - Types of transactions-->
+   <li class="nav-item {{ request()->is('*transaction-types') ? 'active' : '' }}">
+      <a class="nav-link"
+         href="{{ route('admin.transaction-types.index') }}">
+         <i class="fa-solid fa-table"></i>
+         <span>{{ __('Transaction Types') }}</span></a>
+   </li>
+
+   <!-- Nav Item - types of properties  -->
+   <li class="nav-item {{ request()->is('*/property-types') ? 'active' : '' }}">
+      <a class="nav-link"
+         href="{{ route('admin.property-types.index') }}">
+         <i class="fa-solid fa-bars"></i>
+         <span>Property Types</span></a>
+   </li>
+
+   <!-- Nav Item - property amenities -->
+   <li class="nav-item {{ request()->is('*/amenities') ? 'active' : '' }}">
+      <a class="nav-link"
+         href="{{ route('admin.amenities.index') }}">
+         <i class="fa-solid fa-circle-exclamation"></i>
+         <span>{{ __('Amenities') }}</span></a>
+   </li>
+
+   <hr class="sidebar-divider">
+   <!-- Heading -->
+   <div class="sidebar-heading">
+      {{ __('Users Managment') }}
+   </div>
+
+   <!-- Nav Item - App Users -->
+   <li class="nav-item">
+      <a class="nav-link"
+         href="#">
+         <i class="fas fa-fw fa-folder"></i>
+         <span>{{ __('Clients') }}</span>
+      </a>
+   </li>
+
+   <!-- Nav Item - Our agents -->
+   <li class="nav-item">
+      <a class="nav-link collapsed"
+         href="#"
+         data-toggle="collapse"
+         data-target="#collapseAgents"
+         aria-expanded="true"
+         aria-controls="collapseAgents">
+         <i class="fas fa-fw fa-list"></i>
+         <span>{{ __('Agents') }}</span>
+      </a>
+      <div id="collapseAgents"
+         class="collapse"
+         aria-labelledby="headingAgents"
+         data-parent="#accordionSidebar">
+         <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item "
+               href="">{{ __('List') }}</a>
+            <a class="collapse-item"
+               href="">{{ __('Create') }}</a>
+         </div>
+      </div>
+   </li>
    <!-- Divider -->
    <hr class="sidebar-divider d-none d-md-block">
 

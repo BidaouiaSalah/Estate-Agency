@@ -1,33 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AgentController extends Controller
+class agentController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::role('agent')->get();
 
-        $agents = $users->hasRole('agent');
-
-        return view('admin.agents.index', compact('agents'));
-    }
-
-    public function destroy(Request $request)
-    {
-        User::findOrFail($request->user)->delete();
-
-        toast("User deleted Successfully", "success");
-
-        return back();
-    }
-
-    public function profile()
-    {
-        return view('profile');
+        return view('admin.agets.index', compact('agents'));
     }
 }

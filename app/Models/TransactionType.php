@@ -10,6 +10,10 @@ class TransactionType extends Model
 {
     use HasFactory;
 
+    public string $sell = 'sell';
+    public string $buy = 'buy';
+    public string $rent = 'rent';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -58,7 +58,7 @@
                                  </div>
                                  <form class="user"
                                     method="POST"
-                                    action="{{ route('login') }}">
+                                    action="">
                                     @csrf
                                     <div class="form-group row">
                                        <div class="col-md-12">
@@ -127,7 +127,7 @@
                                  </div>
                                  <div class="text-center">
                                     <a class="small"
-                                       href="{{ route('register') }}">{{ __('Create an Account!') }}</a>
+                                       href="{{ route('showRegistrationForm') }}">{{ __('Create an Account!') }}</a>
                                  </div>
                               </div>
                            </div>
