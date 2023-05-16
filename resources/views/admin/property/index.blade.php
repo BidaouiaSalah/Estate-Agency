@@ -56,19 +56,19 @@
                         <td>{{ $property->address }}</td>
                         <td>{{ $property->city }}</td>
                         <td>{{ $property->postal_code }}</td>
-                        <td>{{ $property->type->name }}</td>
-                        <td>{{ $property->transactionType->name }}</td>
+                        <td>{{ $property->type }}</td>
+                        <td>{{ $property->transaction_type }}</td>
                         <td>{{ $property->price }}</td>
                         <td>{{ $property->space }}</td>
-                        <td>{{ $property->pets_allowed }}</td>
+                        <td>{{ $property->pets }}</td>
                         <td>
-                           <span class="{{ $property->available ? 'badge badge-success' : 'badge badge-danger' }}">Success</span>
+                           <span
+                              class="{{ $property->available ? 'badge badge-success' : 'badge badge-danger' }}">Success</span>
                         </td>
                         <td>
                            <form
                               action="{{ route('admin.properties.destroy', ['property' => $property->id]) }}"
-                              method="post"
-                              class="d-inline">
+                              method="post">
                               @csrf
                               @method('delete')
                               <button type="submit"
@@ -80,13 +80,6 @@
                               class="btn btn-primary btn-circle btn-sm">
                               <i class="fas fa-pencil"></i>
                            </a>
-                           <button type="button"
-                              class="btn btn-success btn-circle btn-sm"
-                              data-toggle="modal"
-                              data-target="#propertyPreviewModal"
-                              data-whatever="@mdo">
-                              <i class="fas fa-eye"></i></button>
-                           @include('admin.property.show')
                         </td>
                      </tr>
                   @endforeach

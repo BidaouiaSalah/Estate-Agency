@@ -36,11 +36,10 @@ class StoreUpdatePropertyRequest extends FormRequest
             'bathrooms' => 'nullable',
             'garages' => 'nullable',
             'parking_spaces' => 'nullable',
-            'pets_allowed' => 'nullable',
-            'available' => 'nullable', //update later
-            'user_id' => 'nullable',
+            'pets' => 'required',
+            'available' => 'nullable',
             'transaction_type' => 'required',
-            'type_id' => 'required',
+            'type' => 'required',
             'amenities' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,jfif|dimensions:min_width=500,min_height=700|max:3000'
         ];

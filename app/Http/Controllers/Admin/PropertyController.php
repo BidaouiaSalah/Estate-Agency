@@ -33,13 +33,9 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        $transactionTypes = TransactionType::all();
-        $propertyTypes = PropertyType::all();
         $amenities = Amenity::all();
 
         return view('admin.property.create', compact(
-            'transactionTypes',
-            'propertyTypes',
             'amenities'
         ));
     }
@@ -57,9 +53,9 @@ class PropertyController extends Controller
             'description' => $request->description,
             'address' => $request->address,
             'city' => $request->city,
-            'type_id' => $request->type_id,
+            'type' => $request->type,
             'postal_code' => $request->postal_code,
-            'transaction_type_id' => $request->transaction_type,
+            'transaction_type' => $request->transaction_type,
             'space' => $request->space,
             'price' => $request->price,
             'balconies' => $request->balconies,
@@ -67,7 +63,7 @@ class PropertyController extends Controller
             'bathrooms' => $request->bathrooms,
             'garages' => $request->garages,
             'parking_spaces' => $request->parking_spaces,
-            'pets_allowed' => $request->pets_allowed,
+            'pets' => $request->pets ? 'allowed' : 'prohibited',
             'available' => true,
             'user_id' => auth()->id(),
         ]);
@@ -91,7 +87,6 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-
         $property = Property::with('amenities')->find($property);
 
         return view('pages.property.show', compact('property'));
@@ -105,14 +100,10 @@ class PropertyController extends Controller
     {
         $property = Property::with('amenities')->find($request->property);
 
-        $transactionTypes = TransactionType::all();
-        $propertyTypes = PropertyType::all();
         $amenities = Amenity::all();
 
         return view('admin.property.edit', [
             'property' => $property,
-            'transactionTypes' => $transactionTypes,
-            'propertyTypes' => $propertyTypes,
             'amenities' => $amenities
         ]);
     }
@@ -134,9 +125,9 @@ class PropertyController extends Controller
             'description' => $request->description,
             'address' => $request->address,
             'city' => $request->city,
-            'type_id' => $request->type_id,
+            'type' => $request->type,
             'postal_code' => $request->postal_code,
-            'transaction_type_id' => $request->transaction_type,
+            'transaction_type' => $request->transaction_type,
             'space' => $request->space,
             'price' => $request->price,
             'balconies' => $request->balconies,
@@ -144,7 +135,7 @@ class PropertyController extends Controller
             'bathrooms' => $request->bathrooms,
             'garages' => $request->garages,
             'parking_spaces' => $request->parking_spaces,
-            'pets_allowed' => $request->pets_allowed,
+            'pets' => $request->pets ? 'allowed' : 'prohibited',
             'available' => true,
             'user_id' => auth()->id(),
         ]);

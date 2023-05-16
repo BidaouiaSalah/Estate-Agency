@@ -36,7 +36,7 @@
 
             <li class="nav-item">
                <a class="nav-link "
-                  href="#">{{ __('Agents') }}</a>
+                  href="{{ route('agents.list') }}">{{ __('Agents') }}</a>
             </li>
 
             <li class="nav-item">
@@ -51,7 +51,7 @@
 
             <li class="nav-item">
                <a class="nav-link "
-                  href="{{ route('login') }}">
+                  href="{{ Auth::check() ? route('admin.dashboard.index') : route('loginForm') }}">
                   <i
                      class="{{ Auth::check() ? 'bi bi-person-check-fill' : 'bi bi-person-lock' }}"></i></a>
             </li>

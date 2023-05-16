@@ -39,19 +39,18 @@
                      <label class="col-form-label">{{ __('Type of Transaction') }}</label>
                      <select class="custom-select"
                         name="transaction_type">
-                        @foreach ($transactionTypes as $transactionType)
-                           <option value="{{ $transactionType->id }}">{{ $transactionType->name }}
-                           </option>
-                        @endforeach
+                        <option value="sell">For Sell </option>
+                        <option value="buy">For Buying </option>
+                        <option value="rent">For Rent </option>
                      </select>
                   </div>
                   <div class="col">
                      <label class="col-form-label">{{ __('Type of Property') }}</label>
                      <select class="custom-select"
                         name="type_id">
-                        @foreach ($propertyTypes as $propertyType)
-                           <option value="{{ $propertyType->id }}">{{ $propertyType->name }}</option>
-                        @endforeach
+                        <option value="house">House</option>
+                        <option value="appartement">Appartement</option>
+                        <option value="villa">Villa</option>
                      </select>
                   </div>
                </div>
@@ -221,47 +220,47 @@
       </form>
 
       <!-- begin create new amenity modal
-                  <div class="modal fade"
-                     id="createModal"
-                     tabindex="-1"
-                     role="dialog"
-                     aria-labelledby="createModalLabel"
-                     aria-hidden="true">
-                     <div class="modal-dialog"
-                        role="document">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <h5 class="modal-title"
-                                 id="createModalLabel">{{ __('New amenity') }}</h5>
-                              <a class="close"
-                                 data-dismiss="modal"
-                                 aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                              </a>
-                           </div>
-                           <div class="modal-body">
-                              <form action="{{ route('admin.amenities.store') }}"
-                                 method="post">
-                                 @csrf
-                                 <div class="form-group">
-                                    <label for="recipient-name"
-                                       class="col-form-label">{{ __('Name') }}</label>
-                                    <input type="text"
-                                       class="form-control"
-                                       name="name">
+                        <div class="modal fade"
+                           id="createModal"
+                           tabindex="-1"
+                           role="dialog"
+                           aria-labelledby="createModalLabel"
+                           aria-hidden="true">
+                           <div class="modal-dialog"
+                              role="document">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <h5 class="modal-title"
+                                       id="createModalLabel">{{ __('New amenity') }}</h5>
+                                    <a class="close"
+                                       data-dismiss="modal"
+                                       aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                    </a>
                                  </div>
+                                 <div class="modal-body">
+                                    <form action="{{ route('admin.amenities.store') }}"
+                                       method="post">
+                                       @csrf
+                                       <div class="form-group">
+                                          <label for="recipient-name"
+                                             class="col-form-label">{{ __('Name') }}</label>
+                                          <input type="text"
+                                             class="form-control"
+                                             name="name">
+                                       </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button"
+                                       class="btn btn-secondary"
+                                       data-dismiss="modal">{{ __('Close') }}</button>
+                                    <button type="submit"
+                                       class="btn btn-primary">{{ __('Save') }}</button>
+                                 </div>
+                                 </form>
+                              </div>
                            </div>
-                           <div class="modal-footer">
-                              <button type="button"
-                                 class="btn btn-secondary"
-                                 data-dismiss="modal">{{ __('Close') }}</button>
-                              <button type="submit"
-                                 class="btn btn-primary">{{ __('Save') }}</button>
-                           </div>
-                           </form>
                         </div>
-                     </div>
-                  </div>
-                  end create model  -->
+                        end create model  -->
    </div>
 @endsection

@@ -26,8 +26,8 @@ class Property extends Model implements HasMedia
         'postal_code',
         'city',
         'space',
-        'type_id',
-        'transaction_type_id',
+        'type',
+        'transaction_type',
         'price',
         'balconies',
         'bedrooms',
@@ -49,16 +49,11 @@ class Property extends Model implements HasMedia
         return PropertyFactory::new();
     }
 
-    public function type()
+    public function user()
     {
-        return $this->belongsTo(PropertyType::class);
+        return $this->belongsTo(User::class);
     }
-
-    public function transactionType()
-    {
-        return $this->belongsTo(TransactionType::class);
-    }
-
+    
     public function amenities()
     {
         return $this->belongsToMany(Amenity::class);

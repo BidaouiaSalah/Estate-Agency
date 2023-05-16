@@ -42,6 +42,15 @@
                                  <i class="fas fa-trash"></i>
                               </button>
                            </form>
+
+                           <button type="button"
+                              class="btn btn-sm btn-success shadow-sm"
+                              data-toggle="modal"
+                              data-target="#propertyPreviewModal"
+                              data-whatever="@mdo">
+                              <i class="fas fa-eye"></i></button>
+
+                           @include('admin.agents.show', $agent)
                         </td>
                      </tr>
                   @endforeach

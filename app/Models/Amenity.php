@@ -28,7 +28,7 @@ class Amenity extends Model
         return AmenityFactory::new();
     }
 
-    public function estates()
+    public function properties()
     {
         $this->belongsToMany(Estate::class);
     }

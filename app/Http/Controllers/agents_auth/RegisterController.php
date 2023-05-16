@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function showRegistrationForm()
+    public function RegistrationForm()
     {
         return view('agents_auth.register');
     }
@@ -34,10 +34,10 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        toast('The Agent has been created successfully!', 'success');
-
         $user->assignRole('agent');
 
-        return view('admin.agents.index');
+        toast('The Agent has been created successfully!', 'success');
+
+        return redirect()->route('admin.agents.index');
     }
 }

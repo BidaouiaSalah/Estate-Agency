@@ -33,10 +33,6 @@
    <!-- Divider -->
    <hr class="sidebar-divider">
 
-   <!-- Heading -->
-   <div class="sidebar-heading">
-      Property Managment
-   </div>
    <!-- Nav Item - Properties Collapse Menu -->
    <li class="nav-item">
       <a class="nav-link collapsed"
@@ -61,22 +57,6 @@
       </div>
    </li>
 
-   <!-- Nav Item - Types of transactions-->
-   <li class="nav-item {{ request()->is('*transaction-types') ? 'active' : '' }}">
-      <a class="nav-link"
-         href="{{ route('admin.transaction-types.index') }}">
-         <i class="fa-solid fa-table"></i>
-         <span>{{ __('Transaction Types') }}</span></a>
-   </li>
-
-   <!-- Nav Item - types of properties  -->
-   <li class="nav-item {{ request()->is('*/property-types') ? 'active' : '' }}">
-      <a class="nav-link"
-         href="{{ route('admin.property-types.index') }}">
-         <i class="fa-solid fa-bars"></i>
-         <span>Property Types</span></a>
-   </li>
-
    <!-- Nav Item - property amenities -->
    <li class="nav-item {{ request()->is('*/amenities') ? 'active' : '' }}">
       <a class="nav-link"
@@ -86,10 +66,6 @@
    </li>
 
    <hr class="sidebar-divider">
-   <!-- Heading -->
-   <div class="sidebar-heading">
-      {{ __('Users Managment') }}
-   </div>
 
    <!-- Nav Item - App Users -->
    <li class="nav-item">
@@ -117,9 +93,9 @@
          data-parent="#accordionSidebar">
          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item "
-               href="">{{ __('List') }}</a>
+               href="{{ route('admin.agents.index') }}">{{ __('List') }}</a>
             <a class="collapse-item"
-               href="">{{ __('Create') }}</a>
+               href="{{ route('registrationForm') }}">{{ __('Register') }}</a>
          </div>
       </div>
    </li>

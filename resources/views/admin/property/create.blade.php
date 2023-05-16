@@ -42,19 +42,18 @@
                      <label class="col-form-label">{{ __('Type of Transaction') }}</label>
                      <select class="custom-select"
                         name="transaction_type">
-                        @foreach ($transactionTypes as $transactionType)
-                           <option value="{{ $transactionType->id }}">{{ $transactionType->name }}
-                           </option>
-                        @endforeach
+                        <option value="sell">For Sell </option>
+                        <option value="buy">For Buying </option>
+                        <option value="rent">For Rent </option>
                      </select>
                   </div>
                   <div class="col">
                      <label class="col-form-label">{{ __('Type of Property') }}</label>
                      <select class="custom-select"
-                        name="type_id">
-                        @foreach ($propertyTypes as $propertyType)
-                           <option value="{{ $propertyType->id }}">{{ $propertyType->name }}</option>
-                        @endforeach
+                        name="type">
+                        <option value="house">House</option>
+                        <option value="appartement">Appartement</option>
+                        <option value="villa">Villa</option>
                      </select>
                   </div>
                </div>
@@ -189,11 +188,11 @@
                   <div class="custom-control custom-checkbox">
                      <input type="checkbox"
                         class="custom-control-input"
-                        name="pets_allowed"
-                        id='pets_allowed'
-                        value='1'>
+                        name="pets"
+                        id='pets'
+                        >
                      <label class="custom-control-label"
-                        for="pets_allowed">Check this if pets are allowed</label>
+                        for="pets">Check this if pets are allowed</label>
                   </div>
                </div>
             </div>

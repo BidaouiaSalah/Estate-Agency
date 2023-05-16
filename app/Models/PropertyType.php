@@ -9,17 +9,7 @@ class PropertyType extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'slug'
-    ];
-
-    public function properties()
-    {
-        return $this->hasMany(Property::class);
-    }
+    public static $HOUSE = 'house';
+    public static $APPARTMENT = 'appartment';
+    public static $VILLA = 'villa';
 }

@@ -28,12 +28,10 @@ return new class extends Migration
             $table->integer('bathrooms')->nullable();
             $table->integer('garages')->nullable();
             $table->integer('parking_spaces')->nullable();
-            $table->boolean('pets_allowed');
+            $table->enum('pets', ['allowed', 'prohibited']);
             $table->boolean('available');
-            $table->foreignId('type_id')->constrained('property_types')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('transaction_type_id')->constrained('transaction_types')
-                ->onDelete('cascade')->onUpdate('cascade');
+            $table->string('type');
+            $table->string('transaction_type');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL as URL;
 
-class SetLanguage
+class SetLocale
 {
     /**
      * Handle an incoming request.
@@ -18,14 +18,12 @@ class SetLanguage
      */
     public function handle(Request $request, Closure $next)
     {
+        $locale = config('locale');
 
-        if ($request->route('locale')) {
-            App::setLocale($request->route('locale'));
-
-            URL::defaults(['locale' => App()->getLocale()]);
-
+        if (!$request->locale) {
+            URL::defaults(['locale' => $locale]);
         } else {
-            URL::defaults(['locale' => 'en']);
+            App::setLocale($request->locale);
         }
 
         return $next($request);
